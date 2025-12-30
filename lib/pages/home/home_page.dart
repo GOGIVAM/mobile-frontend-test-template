@@ -5,6 +5,7 @@ import 'widgets/header.dart';
 import 'widgets/sidebar.dart';
 import 'widgets/sales_analysis_card.dart';
 import 'widgets/sales_bar_chart_card.dart';
+import 'widgets/orders_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -47,7 +48,8 @@ class HomePage extends StatelessWidget {
                               ),
                             ],
                             const SizedBox(height: 24),
-                            // Other dashboard sections
+                            const OrdersCard(),
+                            const SizedBox(height: 24),
                           ],
                         ),
                       ),
