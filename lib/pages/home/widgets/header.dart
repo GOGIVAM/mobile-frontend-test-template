@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../utils/app_colors.dart';
 import '../../../widgets/custom_search_input.dart';
+import '../../../widgets/notification_badge.dart';
 
 class Header extends StatelessWidget {
   final bool showMenu;
@@ -52,39 +53,15 @@ class Header extends StatelessWidget {
           // Notifications & Profile
           Row(
             children: [
-              if (MediaQuery.of(context).size.width > 900) _buildNotificationBadge(),
+              if (MediaQuery.of(context).size.width > 900)
+                const NotificationBadge(
+                  text: 'You have ',
+                  highlightedText: '21 new leads',
+                ),
               const SizedBox(width: 16),
               _buildUserProfile(context),
             ],
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNotificationBadge() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          RichText(
-            text: const TextSpan(
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
-              children: [
-                TextSpan(text: 'You have '),
-                TextSpan(
-                  text: '21 new leads',
-                  style: TextStyle(color: AppColors.warning, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 8),
-          const Icon(Icons.notifications_none, color: AppColors.warning, size: 20),
         ],
       ),
     );
