@@ -10,9 +10,9 @@ class OrdersCard extends StatelessWidget {
     final List<Order> orders = [
       Order(
         customerName: 'Ellie Collins',
-        customerImage: 'https://i.pravatar.cc/150?u=ellie',
+        customerImage: 'assets/images/avatar.png',
         productName: 'Ginger Snacks',
-        productImage: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=150',
+        productImage: 'assets/images/ginger.png',
         userId: 'Arise827',
         date: '12/12/2021',
         amount: '\$18.00',
@@ -22,10 +22,11 @@ class OrdersCard extends StatelessWidget {
     ];
 
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(02),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -45,38 +46,44 @@ class OrdersCard extends StatelessWidget {
               color: AppColors.textPrimary,
             ),
           ),
-          const SizedBox(height: 24),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              horizontalMargin: 0,
-              columnSpacing: 40,
-              headingTextStyle: const TextStyle(
-                color: AppColors.textSecondary,
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
-              columns: const [
-                DataColumn(label: Text('Customer')),
-                DataColumn(label: Text('Product')),
-                DataColumn(label: Text('User ID')),
-                DataColumn(label: Text('Ordered Placed')),
-                DataColumn(label: Text('Amount')),
-                DataColumn(label: Text('Payment Status')),
-                DataColumn(label: Text('')), // For status button
-              ],
-              rows: orders.map((order) {
-                return DataRow(cells: [
-                  DataCell(_buildCustomerCell(order)),
-                  DataCell(_buildProductCell(order)),
-                  DataCell(Text(order.userId, style: const TextStyle(color: AppColors.textPrimary))),
-                  DataCell(Text(order.date, style: const TextStyle(color: AppColors.textPrimary))),
-                  DataCell(Text(order.amount, style: const TextStyle(color: AppColors.textPrimary))),
-                  DataCell(_buildPaymentStatusCell(order)),
-                  DataCell(_buildDeliveryStatusCell(order)),
-                ]);
-              }).toList(),
-            ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                  child: DataTable(
+                    horizontalMargin: 0,
+                    columnSpacing: 20,
+                    headingTextStyle: const TextStyle(
+                      color: AppColors.textSecondary,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    columns: const [
+                      DataColumn(label: Text('Customer')),
+                      DataColumn(label: Text('Product')),
+                      DataColumn(label: Text('User ID')),
+                      DataColumn(label: Text('Ordered Placed')),
+                      DataColumn(label: Text('Amount')),
+                      DataColumn(label: Text('Payment Status')),
+                      DataColumn(label: Text('Delivery Status')),
+                    ],
+                    rows: orders.map((order) {
+                      return DataRow(cells: [
+                        DataCell(_buildCustomerCell(order)),
+                        DataCell(_buildProductCell(order)),
+                        DataCell(Text(order.userId, style: const TextStyle(color: AppColors.textPrimary))),
+                        DataCell(Text(order.date, style: const TextStyle(color: AppColors.textPrimary))),
+                        DataCell(Text(order.amount, style: const TextStyle(color: AppColors.textPrimary))),
+                        DataCell(_buildPaymentStatusCell(order)),
+                        DataCell(_buildDeliveryStatusCell(order)),
+                      ]);
+                    }).toList(),
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -85,10 +92,11 @@ class OrdersCard extends StatelessWidget {
 
   Widget _buildCustomerCell(Order order) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(4),
-          child: Image.network(order.customerImage, width: 32, height: 32, fit: BoxFit.cover),
+          child: Image.asset(order.customerImage, width: 32, height: 32, fit: BoxFit.cover),
         ),
         const SizedBox(width: 12),
         Text(order.customerName, style: const TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.w500)),
@@ -98,10 +106,11 @@ class OrdersCard extends StatelessWidget {
 
   Widget _buildProductCell(Order order) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(4),
-          child: Image.network(order.productImage, width: 40, height: 32, fit: BoxFit.cover),
+          child: Image.asset(order.productImage, width: 40, height: 32, fit: BoxFit.cover),
         ),
         const SizedBox(width: 12),
         Text(order.productName, style: const TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.w500)),
@@ -111,6 +120,7 @@ class OrdersCard extends StatelessWidget {
 
   Widget _buildPaymentStatusCell(Order order) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Icon(Icons.check_circle_outline, color: Color(0xFF28C76F), size: 18),
         const SizedBox(width: 8),

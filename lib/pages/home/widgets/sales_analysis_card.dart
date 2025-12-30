@@ -11,7 +11,7 @@ class SalesAnalysisCard extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(02),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),

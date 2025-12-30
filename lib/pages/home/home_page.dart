@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
       child: Row(
         children: const [
           SizedBox(
-            width: 280,
+            width: 300,
             child: StatCard(
               title: 'Sales',
               value: '250k',
@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(width: 16),
           SizedBox(
-            width: 280,
+            width: 300,
             child: StatCard(
               title: 'Customers',
               value: '24m',
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(width: 16),
           SizedBox(
-            width: 280,
+            width: 300,
             child: StatCard(
               title: 'Products',
               value: '15k',
@@ -103,7 +103,7 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(width: 16),
           SizedBox(
-            width: 280,
+            width: 300,
             child: StatCard(
               title: 'Revenue',
               value: '180m',

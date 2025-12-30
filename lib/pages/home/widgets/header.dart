@@ -120,7 +120,7 @@ class Header extends StatelessWidget {
         const CircleAvatar(
           radius: 16,
           backgroundColor: AppColors.textLight,
-          backgroundImage: NetworkImage('https://i.pravatar.cc/150?u=abigale'),
+          backgroundImage: AssetImage('assets/images/avatar.png'),
         ),
       ],
     );

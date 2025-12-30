@@ -11,7 +11,7 @@ class SalesBarChartCard extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(02),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -33,7 +33,8 @@ class SalesBarChartCard extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           SizedBox(
-            height: 200,
+            height: 210,
+            width: 300,
             child: BarChart(
               BarChartData(
                 alignment: BarChartAlignment.spaceAround,
