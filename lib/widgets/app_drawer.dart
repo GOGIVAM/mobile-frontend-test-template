@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import '../controllers/navigation_controller.dart';
 import '../models/menu_item.dart';
 
-class AppDrawer extends StatelessWidget {
-  const AppDrawer({Key? key}) : super(key: key);
+class NavigationDrawer extends StatelessWidget {
+  const NavigationDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

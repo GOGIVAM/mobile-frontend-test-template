@@ -2,30 +2,28 @@
 
 Application dashboard mobile/web Flutter reproduisant fidèlement une maquette de tableau de bord d'administration.
 
-## 🎯 Fonctionnalités
 
-### ✅ Interface Dashboard
+### Interface Dashboard
 - **4 cartes statistiques** : Sales (250k), Customers (24m), Products (15k), Revenue (180m)
 - **Graphique de ventes** : Visualisation des données de ventes et revenus mensuels avec fl_chart
 - **Tableau de commandes** : Affichage des commandes avec statuts de paiement et de livraison
 - **Cartes d'information** : Overall Sales, Earnings, Revenue, New Customers
 
-### ✅ Navigation
+### Navigation
 - **Drawer latéral** : Navigation complète avec 14 éléments de menu
 - **Pages fonctionnelles** :
   - Dashboard (page principale)
   - Analytics
   - Reports
   - Products
-  - Calendar
 
-### ✅ UX/UI
-- Design fidèle à la maquette
+### UX/UI
+- Design fidèle à la maquette (Proposition d'un drawer)
 - Couleurs et espacements respectés
 - Animations et interactions fluides
 - Responsive design
 
-## 📁 Structure du Projet
+## Structure du Projet
 
 ```
 lib/
@@ -94,22 +92,15 @@ dev_dependencies:
   flutter_lints: ^3.0.0
 ```
 
-## 🎨 Palette de Couleurs
 
-- **Bleu Principal** : `#5B67F1` - Utilisé pour Sales, boutons principaux
-- **Vert** : `#6FCF97` - Utilisé pour Revenue, statuts de succès
-- **Orange** : `#FFA726` - Utilisé pour Products, statuts pending
-- **Rouge** : `#FF6B6B` / `#EF5350` - Utilisé pour alertes, statuts d'échec
-- **Bleu Clair** : `#7DD8F7` - Utilisé pour la courbe de revenue
-- **Fond** : `#F5F7FA` - Couleur de fond principale
 
-## 📊 Données Mockées
+## Données Mockées
 
 Les données sont entièrement statiques et mockées dans `lib/utils/mock_data.dart` :
 - 5 commandes exemple
 - 12 points de données pour le graphique (un par mois)
 
-## 🔧 Personnalisation
+## Personnalisation
 
 ### Ajouter une nouvelle page
 
@@ -121,13 +112,13 @@ Les données sont entièrement statiques et mockées dans `lib/utils/mock_data.d
 
 Éditer le fichier `lib/utils/mock_data.dart` pour changer les données affichées.
 
-## 📱 Compatibilité
+## Compatibilité
 
-- ✅ Web (Chrome, Firefox, Edge)
-- ✅ Mobile (iOS, Android) - si configuré
-- ✅ Desktop (Windows, macOS, Linux) - si configuré
+- Web (Chrome, Firefox, Edge)
+- Mobile (iOS, Android) - si configuré
+- Desktop (Windows, macOS, Linux) - si configuré
 
-## 👨‍💻 Développement
+## Développement
 
 ### Commandes utiles
 
@@ -145,7 +136,7 @@ flutter test
 flutter build web
 ```
 
-## 📝 Notes
+## Notes
 
 - Application créée pour un test technique
 - Interface fidèle à la maquette fournie
@@ -153,7 +144,7 @@ flutter build web
 - Utilisation de widgets standards Flutter
 - Pas de state management complexe (données statiques)
 
-## 🎓 Concepts Flutter Utilisés
+##  Concepts Flutter Utilisés
 
 - StatelessWidget
 - MaterialApp & Theme
@@ -165,6 +156,4 @@ flutter build web
 - Layouts (Row, Column, Stack)
 - Material Design
 
----
 
-**Développé avec ❤️ en Flutter**

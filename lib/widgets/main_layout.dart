@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'app_drawer.dart';
+import 'app_drawer.dart' as drawer;
 
 class MainLayout extends StatelessWidget {
   final Widget child;
@@ -31,7 +31,7 @@ class MainLayout extends StatelessWidget {
         title: title,
         actions: actions,
       ),
-      drawer: const AppDrawer(),
+          drawer: const drawer.NavigationDrawer(),
       body: child,
     );
   }

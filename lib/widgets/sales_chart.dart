@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_chart/fl_chart.dart' as fl_chart;
 import '../utils/mock_data.dart';
 
-class SalesChart extends StatefulWidget {
-  const SalesChart({super.key});
+class LineChart extends StatefulWidget {
+  const LineChart({super.key});
 
   @override
-  State<SalesChart> createState() => _SalesChartState();
+  State<LineChart> createState() => _LineChartState();
 }
 
-class _SalesChartState extends State<SalesChart> {
+class _LineChartState extends State<LineChart> {
   String selectedPeriod = 'Today';
   final List<String> periods = ['Today', 'Yesterday', '7 days', '15 days', '30 days'];
 
@@ -20,9 +20,7 @@ class _SalesChartState extends State<SalesChart> {
     return Container(
       padding: const EdgeInsets.all(0),
       decoration: BoxDecoration(
-    
         borderRadius: BorderRadius.circular(16),
-        
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,38 +29,36 @@ class _SalesChartState extends State<SalesChart> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-             
               _buildPeriodSelector(),
             ],
           ),
-         
           SizedBox(
             height: 250,
-            child: LineChart(
-              LineChartData(
-                gridData: FlGridData(
+            child: fl_chart.LineChart(
+              fl_chart.LineChartData(
+                gridData: fl_chart.FlGridData(
                   show: true,
                   drawVerticalLine: false,
                   horizontalInterval: 20,
                   getDrawingHorizontalLine: (value) {
-                    return FlLine(
+                    return fl_chart.FlLine(
                       color: Colors.grey.withValues(alpha: 0.1),
                       strokeWidth: 1,
                     );
                   },
                 ),
-                titlesData: FlTitlesData(
-                  leftTitles:const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
+                titlesData: fl_chart.FlTitlesData(
+                  leftTitles: const fl_chart.AxisTitles(
+                    sideTitles: fl_chart.SideTitles(showTitles: false),
                   ),
-                  rightTitles:const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
+                  rightTitles: const fl_chart.AxisTitles(
+                    sideTitles: fl_chart.SideTitles(showTitles: false),
                   ),
-                  topTitles:const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
+                  topTitles: const fl_chart.AxisTitles(
+                    sideTitles: fl_chart.SideTitles(showTitles: false),
                   ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
+                  bottomTitles: fl_chart.AxisTitles(
+                    sideTitles: fl_chart.SideTitles(
                       showTitles: true,
                       interval: 1,
                       getTitlesWidget: (value, meta) {
@@ -83,51 +79,51 @@ class _SalesChartState extends State<SalesChart> {
                     ),
                   ),
                 ),
-                borderData: FlBorderData(show: false),
+                borderData: fl_chart.FlBorderData(show: false),
                 minX: 0,
                 maxX: (salesData.length - 1).toDouble(),
                 minY: 0,
                 maxY: 100,
                 lineBarsData: [
                   // Sales line
-                  LineChartBarData(
+                  fl_chart.LineChartBarData(
                     spots: salesData.asMap().entries.map((e) {
-                      return FlSpot(e.key.toDouble(), e.value.sales);
+                      return fl_chart.FlSpot(e.key.toDouble(), e.value.sales);
                     }).toList(),
                     isCurved: true,
                     color: const Color(0xFF5B67F1),
                     barWidth: 3,
                     isStrokeCapRound: true,
-                    dotData: const FlDotData(show: false),
-                    belowBarData: BarAreaData(
+                    dotData: const fl_chart.FlDotData(show: false),
+                    belowBarData: fl_chart.BarAreaData(
                       show: true,
                       color: const Color(0xFF5B67F1).withValues(alpha: 0.2),
                     ),
                   ),
                   // Revenue line
-                  LineChartBarData(
+                  fl_chart.LineChartBarData(
                     spots: salesData.asMap().entries.map((e) {
-                      return FlSpot(e.key.toDouble(), e.value.revenue);
+                      return fl_chart.FlSpot(e.key.toDouble(), e.value.revenue);
                     }).toList(),
                     isCurved: true,
                     color: const Color(0xFF7DD8F7),
                     barWidth: 3,
                     isStrokeCapRound: true,
-                    dotData: const FlDotData(show: false),
-                    belowBarData: BarAreaData(
+                    dotData: const fl_chart.FlDotData(show: false),
+                    belowBarData: fl_chart.BarAreaData(
                       show: true,
                       color: const Color(0xFF7DD8F7).withValues(alpha: 0.2),
                     ),
                   ),
                 ],
-                lineTouchData: LineTouchData(
-                  touchTooltipData: LineTouchTooltipData(
+                lineTouchData: fl_chart.LineTouchData(
+                  touchTooltipData: fl_chart.LineTouchTooltipData(
                     tooltipBgColor: Colors.black87,
-                    getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+                    getTooltipItems: (List<fl_chart.LineBarSpot> touchedBarSpots) {
                       return touchedBarSpots.map((barSpot) {
                         final flSpot = barSpot;
                         final month = salesData[flSpot.x.toInt()].month;
-                        return LineTooltipItem(
+                        return fl_chart.LineTooltipItem(
                           '${barSpot.barIndex == 0 ? 'Sales' : 'Revenue'}: ${flSpot.y.toInt()}\n$month',
                           const TextStyle(
                             color: Colors.white,
@@ -159,7 +155,6 @@ class _SalesChartState extends State<SalesChart> {
   Widget _buildPeriodSelector() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: periods.map((period) {
@@ -214,4 +209,3 @@ class _SalesChartState extends State<SalesChart> {
     );
   }
 }
-

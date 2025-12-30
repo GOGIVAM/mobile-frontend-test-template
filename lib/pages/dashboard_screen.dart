@@ -162,7 +162,7 @@ class DashboardScreen extends StatelessWidget {
                       padding: EdgeInsets.only(
                         right: index < stats.length - 1 ? 16 : 0,
                       ),
-                      child: StatCard(data: stat),
+                      child: KpiCard(data: stat),
                     ),
                   );
                 }),
@@ -276,7 +276,7 @@ class DashboardScreen extends StatelessWidget {
                                     const SizedBox(width: 64),
                                     // Graphique à droite
                                     const Expanded(
-                                      child: SalesChart(),
+                                      child: LineChart(),
                                     ),
                                   ],
                                 ),
@@ -324,7 +324,7 @@ class DashboardScreen extends StatelessWidget {
                                 child: Padding(
                                   padding:
                                        EdgeInsets.symmetric(vertical: 16),
-                                  child:  SalesBarChart(),
+                                  child: BarChart(),
                                 ),
                               ),
                               Column(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/stat_card.dart';
 
-class StatCard extends StatelessWidget {
+class KpiCard extends StatelessWidget {
   final StatCardData data;
 
-  const StatCard({
+  const KpiCard({
     super.key,
     required this.data,
   });

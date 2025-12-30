@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:fl_chart/fl_chart.dart' as fl_chart;
 
-class SalesBarChart extends StatelessWidget {
-  const SalesBarChart({super.key});
+class BarChart extends StatelessWidget {
+  const BarChart({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BarChart(
-      BarChartData(
-        alignment: BarChartAlignment.spaceAround,
+    return fl_chart.BarChart(
+      fl_chart.BarChartData(
+        alignment: fl_chart.BarChartAlignment.spaceAround,
         maxY: 100,
-        barTouchData: BarTouchData(enabled: false),
-        titlesData: FlTitlesData(
+        barTouchData: fl_chart.BarTouchData(enabled: false),
+        titlesData: fl_chart.FlTitlesData(
           show: true,
-          rightTitles: const AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
+          rightTitles: const fl_chart.AxisTitles(
+            sideTitles: fl_chart.SideTitles(showTitles: false),
           ),
-          topTitles: const AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
+          topTitles: const fl_chart.AxisTitles(
+            sideTitles: fl_chart.SideTitles(showTitles: false),
           ),
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
+          bottomTitles: fl_chart.AxisTitles(
+            sideTitles: fl_chart.SideTitles(
               showTitles: true,
               getTitlesWidget: (value, meta) {
                 const labels = ['Usa', 'Ind', 'Brz', 'Mex'];
@@ -42,17 +42,17 @@ class SalesBarChart extends StatelessWidget {
               reservedSize: 30,
             ),
           ),
-          leftTitles: const AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
+          leftTitles: const fl_chart.AxisTitles(
+            sideTitles: fl_chart.SideTitles(showTitles: false),
           ),
         ),
-        gridData: const FlGridData(show: false),
-        borderData: FlBorderData(show: false),
+        gridData: const fl_chart.FlGridData(show: false),
+        borderData: fl_chart.FlBorderData(show: false),
         barGroups: [
-          BarChartGroupData(
+          fl_chart.BarChartGroupData(
             x: 0,
             barRods: [
-              BarChartRodData(
+              fl_chart.BarChartRodData(
                 toY: 20,
                 gradient: const LinearGradient(
                   begin: Alignment.topCenter,
@@ -69,10 +69,10 @@ class SalesBarChart extends StatelessWidget {
               ),
             ],
           ),
-          BarChartGroupData(
+          fl_chart.BarChartGroupData(
             x: 1,
             barRods: [
-              BarChartRodData(
+              fl_chart.BarChartRodData(
                 toY: 50,
                 gradient: const LinearGradient(
                   begin: Alignment.topCenter,
@@ -89,10 +89,10 @@ class SalesBarChart extends StatelessWidget {
               ),
             ],
           ),
-          BarChartGroupData(
+          fl_chart.BarChartGroupData(
             x: 2,
             barRods: [
-              BarChartRodData(
+              fl_chart.BarChartRodData(
                 toY: 70,
                 gradient: const LinearGradient(
                   begin: Alignment.topCenter,
@@ -109,10 +109,10 @@ class SalesBarChart extends StatelessWidget {
               ),
             ],
           ),
-          BarChartGroupData(
+          fl_chart.BarChartGroupData(
             x: 3,
             barRods: [
-              BarChartRodData(
+              fl_chart.BarChartRodData(
                 toY: 90,
                 gradient: const LinearGradient(
                   begin: Alignment.topCenter,
@@ -134,4 +134,3 @@ class SalesBarChart extends StatelessWidget {
     );
   }
 }
-
