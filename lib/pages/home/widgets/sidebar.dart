@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../utils/app_colors.dart';
+import '../../../widgets/custom_tile.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -24,20 +25,20 @@ class Sidebar extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
-                _buildMenuItem(Icons.grid_view, 'Dashboards', isSelected: true, hasArrow: true),
+                const CustomTile(icon: Icons.grid_view, title: 'Dashboards', isSelected: true, hasArrow: true),
                 _buildSubMenuItem('Analytics', isSelected: true),
                 _buildSubMenuItem('Reports'),
-                _buildMenuItem(Icons.shopping_bag_outlined, 'Product', hasArrow: true),
-                _buildMenuItem(Icons.widgets_outlined, 'Widgets', hasArrow: true),
-                _buildMenuItem(Icons.auto_awesome_mosaic_outlined, 'UI Elements', hasArrow: true),
-                _buildMenuItem(Icons.description_outlined, 'Pages', hasArrow: true),
-                _buildMenuItem(Icons.calendar_today_outlined, 'Calendar', hasArrow: true),
-                _buildMenuItem(Icons.edit_note_outlined, 'Forms', hasArrow: true),
-                _buildMenuItem(Icons.table_chart_outlined, 'Tables', hasArrow: true),
-                _buildMenuItem(Icons.map_outlined, 'Graphs & Maps', hasArrow: true),
-                _buildMenuItem(Icons.layers_outlined, 'Layouts', hasArrow: true),
-                _buildMenuItem(Icons.lock_outline, 'Authentication', hasArrow: true),
-                _buildMenuItem(Icons.link, 'Link'),
+                const CustomTile(icon: Icons.shopping_bag_outlined, title: 'Product', hasArrow: true),
+                const CustomTile(icon: Icons.widgets_outlined, title: 'Widgets', hasArrow: true),
+                const CustomTile(icon: Icons.auto_awesome_mosaic_outlined, title: 'UI Elements', hasArrow: true),
+                const CustomTile(icon: Icons.description_outlined, title: 'Pages', hasArrow: true),
+                const CustomTile(icon: Icons.calendar_today_outlined, title: 'Calendar', hasArrow: true),
+                const CustomTile(icon: Icons.edit_note_outlined, title: 'Forms', hasArrow: true),
+                const CustomTile(icon: Icons.table_chart_outlined, title: 'Tables', hasArrow: true),
+                const CustomTile(icon: Icons.map_outlined, title: 'Graphs & Maps', hasArrow: true),
+                const CustomTile(icon: Icons.layers_outlined, title: 'Layouts', hasArrow: true),
+                const CustomTile(icon: Icons.lock_outline, title: 'Authentication', hasArrow: true),
+                const CustomTile(icon: Icons.link, title: 'Link'),
               ],
             ),
           ),
@@ -69,38 +70,6 @@ class Sidebar extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildMenuItem(IconData icon, String title, {bool isSelected = false, bool hasArrow = false}) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 4),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: ListTile(
-        dense: true,
-        leading: Icon(
-          icon,
-          color: isSelected ? const Color(0xFF4318FF) : AppColors.textSecondary,
-          size: 20,
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-            fontSize: 14,
-          ),
-        ),
-        trailing: hasArrow
-            ? Icon(
-                Icons.keyboard_arrow_down,
-                size: 16,
-                color: isSelected ? AppColors.textPrimary : AppColors.textSecondary,
-              )
-            : null,
-      ),
     );
   }
 

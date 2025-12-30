@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../utils/app_colors.dart';
+import '../../../widgets/custom_search_input.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -11,18 +12,18 @@ class Header extends StatelessWidget {
       child: Row(
         children: [
           // Breadcrumbs
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  const Icon(Icons.home_outlined, size: 18, color: AppColors.textSecondary),
-                  const SizedBox(width: 8),
-                  const Text('Home', style: TextStyle(color: AppColors.textSecondary)),
-                  const SizedBox(width: 8),
-                  const Icon(Icons.chevron_right, size: 18, color: AppColors.textSecondary),
-                  const SizedBox(width: 8),
-                  const Text(
+                  Icon(Icons.home_outlined, size: 18, color: AppColors.textSecondary),
+                  SizedBox(width: 8),
+                  Text('Home', style: TextStyle(color: AppColors.textSecondary)),
+                  SizedBox(width: 8),
+                  Icon(Icons.chevron_right, size: 18, color: AppColors.textSecondary),
+                  SizedBox(width: 8),
+                  Text(
                     'Sales',
                     style: TextStyle(
                       color: AppColors.textPrimary,
@@ -35,31 +36,9 @@ class Header extends StatelessWidget {
           ),
           const Spacer(),
           // Search Bar
-          Expanded(
+          const Expanded(
             flex: 2,
-            child: Container(
-              height: 40,
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.02),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search anything',
-                  hintStyle: TextStyle(color: AppColors.textLight, fontSize: 14),
-                  prefixIcon: Icon(Icons.search, color: AppColors.textSecondary, size: 20),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(vertical: 10),
-                ),
-              ),
-            ),
+            child: CustomSearchInput(hintText: 'Search anything'),
           ),
           const SizedBox(width: 24),
           // Notifications & Profile
