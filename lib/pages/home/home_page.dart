@@ -4,6 +4,7 @@ import '../../widgets/stat_card.dart';
 import 'widgets/header.dart';
 import 'widgets/sidebar.dart';
 import 'widgets/sales_analysis_card.dart';
+import 'widgets/sales_bar_chart_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final bool isMobile = constraints.maxWidth < 800;
+        final bool isMobile = constraints.maxWidth < 1100;
 
         return Scaffold(
           backgroundColor: AppColors.background,
@@ -31,7 +32,20 @@ class HomePage extends StatelessWidget {
                           children: [
                             _buildStatRow(context),
                             const SizedBox(height: 24),
-                            const SalesAnalysisCard(),
+                            if (isMobile) ...[
+                              const SalesAnalysisCard(),
+                              const SizedBox(height: 24),
+                              const SalesBarChartCard(),
+                            ] else ...[
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Expanded(flex: 2, child: SalesAnalysisCard()),
+                                  const SizedBox(width: 24),
+                                  const Expanded(flex: 1, child: SalesBarChartCard()),
+                                ],
+                              ),
+                            ],
                             const SizedBox(height: 24),
                             // Other dashboard sections
                           ],
