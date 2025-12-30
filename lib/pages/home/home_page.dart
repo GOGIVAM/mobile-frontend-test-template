@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 import 'widgets/header.dart';
+import 'widgets/sidebar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,15 +10,27 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Header(),
-              // Other dashboard sections will be added here
-            ],
+      body: Row(
+        children: [
+          const Sidebar(),
+          Expanded(
+            child: Column(
+              children: [
+                const Header(),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      children: [
+                        // Dashboard content will go here
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
