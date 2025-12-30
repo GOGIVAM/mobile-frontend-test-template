@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 import '../../widgets/stat_card.dart';
+import '../../widgets/chatbot_widget.dart';
 import 'widgets/header.dart';
 import 'widgets/sidebar.dart';
 import 'widgets/sales_analysis_card.dart';
@@ -19,43 +20,53 @@ class HomePage extends StatelessWidget {
         return Scaffold(
           backgroundColor: AppColors.background,
           drawer: isMobile ? const Sidebar() : null,
-          body: Row(
+          body: Stack(
             children: [
-              if (!isMobile) const Sidebar(),
-              Expanded(
-                child: Column(
-                  children: [
-                    Header(showMenu: isMobile),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                        child: Column(
-                          children: [
-                            _buildStatRow(context),
-                            const SizedBox(height: 24),
-                            if (isMobile) ...[
-                              const SalesAnalysisCard(),
-                              const SizedBox(height: 24),
-                              const SalesBarChartCard(),
-                            ] else ...[
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Expanded(flex: 2, child: SalesAnalysisCard()),
-                                  const SizedBox(width: 24),
-                                  const Expanded(flex: 1, child: SalesBarChartCard()),
+              Row(
+                children: [
+                  if (!isMobile) const Sidebar(),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Header(showMenu: isMobile),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                            child: Column(
+                              children: [
+                                _buildStatRow(context),
+                                const SizedBox(height: 20),
+                                if (isMobile) ...[
+                                  const SalesAnalysisCard(),
+                                  const SizedBox(height: 20),
+                                  const SalesBarChartCard(),
+                                ] else ...[
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const Expanded(flex: 2, child: SalesAnalysisCard()),
+                                      const SizedBox(width: 20),
+                                      const Expanded(flex: 1, child: SalesBarChartCard()),
+                                    ],
+                                  ),
                                 ],
-                              ),
-                            ],
-                            const SizedBox(height: 24),
-                            const OrdersCard(),
-                            const SizedBox(height: 24),
-                          ],
+                                const SizedBox(height: 20),
+                                const OrdersCard(),
+                                const SizedBox(height: 80),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
+              // Hover Chatbot positioned at the bottom right
+              const Positioned(
+                bottom: 24,
+                right: 24,
+                child: ChatbotWidget(),
               ),
             ],
           ),
