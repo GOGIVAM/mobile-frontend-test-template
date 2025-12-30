@@ -3,6 +3,7 @@ import '../../utils/app_colors.dart';
 import '../../widgets/stat_card.dart';
 import 'widgets/header.dart';
 import 'widgets/sidebar.dart';
+import 'widgets/sales_analysis_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -29,6 +30,8 @@ class HomePage extends StatelessWidget {
                         child: Column(
                           children: [
                             _buildStatRow(context),
+                            const SizedBox(height: 24),
+                            const SalesAnalysisCard(),
                             const SizedBox(height: 24),
                             // Other dashboard sections
                           ],
