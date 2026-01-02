@@ -31,7 +31,8 @@ class DashboardScreen extends StatelessWidget {
                         Header(showMenu: isMobile),
                         Expanded(
                           child: SingleChildScrollView(
-                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 16),
                             child: Column(
                               children: [
                                 _buildKpiRow(),
@@ -42,11 +43,16 @@ class DashboardScreen extends StatelessWidget {
                                   const SalesBarChartCard(),
                                 ] else ...[
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: const [
-                                      Expanded(flex: 3, child: SalesAnalysisCard()),
-                                      SizedBox(width: 20),
-                                      Expanded( child: SalesBarChartCard()),
+                                      Expanded(
+                                          flex: 3, child: SalesAnalysisCard()),
+                                      SizedBox(width: 16),
+                                      Expanded(
+                                          child: SizedBox(
+                                              width: 310,
+                                              child: SalesBarChartCard())),
                                     ],
                                   ),
                                 ],
@@ -89,7 +95,7 @@ class DashboardScreen extends StatelessWidget {
               iconBackgroundColor: Color(0xFFFCEFE5),
             ),
           ),
-          SizedBox(width: 16),
+          SizedBox(width: 12),
           SizedBox(
             width: 310,
             child: KpiCard(
@@ -100,7 +106,7 @@ class DashboardScreen extends StatelessWidget {
               iconBackgroundColor: Color(0xFFF4F7FE),
             ),
           ),
-          SizedBox(width: 16),
+          SizedBox(width: 12),
           SizedBox(
             width: 310,
             child: KpiCard(
@@ -111,7 +117,7 @@ class DashboardScreen extends StatelessWidget {
               iconBackgroundColor: Color(0xFFFFF8ED),
             ),
           ),
-          SizedBox(width: 16),
+          SizedBox(width: 12),
           SizedBox(
             width: 310,
             child: KpiCard(

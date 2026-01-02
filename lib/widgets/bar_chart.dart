@@ -10,7 +10,7 @@ class BarChart extends StatelessWidget {
     return fl_chart.BarChart(
       fl_chart.BarChartData(
         alignment: fl_chart.BarChartAlignment.spaceAround,
-        maxY: 20,
+        maxY: 18,
         barTouchData: fl_chart.BarTouchData(enabled: false),
         titlesData: fl_chart.FlTitlesData(
           show: true,

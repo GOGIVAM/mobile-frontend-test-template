@@ -8,7 +8,7 @@ class Sidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
+      width: 210,
       height: double.infinity,
       decoration: const BoxDecoration(
         color: AppColors.surface,
@@ -18,9 +18,9 @@ class Sidebar extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const SizedBox(height: 32),
+          const SizedBox(height: 20),
           _buildLogo(),
-          const SizedBox(height: 40),
+          const SizedBox(height: 30),
           Expanded(
             child: ListView(
               children: [
