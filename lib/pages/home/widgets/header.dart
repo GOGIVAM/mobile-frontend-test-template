@@ -26,7 +26,7 @@ class Header extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.home_outlined, size: 18, color: AppColors.textSecondary),
+                    Icon(Icons.home_outlined, size: 30, color: AppColors.primary),
                     SizedBox(width: 8),
                     Text('Home', style: TextStyle(color: AppColors.textSecondary)),
                     SizedBox(width: 8),
@@ -43,10 +43,9 @@ class Header extends StatelessWidget {
                 ),
               ],
             ),
-          const Spacer(),
+          const Spacer(flex: 3),
           // Search Bar
           const Expanded(
-            flex: 2,
             child: CustomSearchInput(hintText: 'Search anything'),
           ),
           const SizedBox(width: 16),
@@ -56,7 +55,8 @@ class Header extends StatelessWidget {
               if (MediaQuery.of(context).size.width > 900)
                 const NotificationBadge(
                   text: 'You have ',
-                  highlightedText: '21 new leads',
+                  highlightedText: ' 21',
+                  othertext: ' new leads',
                 ),
               const SizedBox(width: 16),
               _buildUserProfile(context),

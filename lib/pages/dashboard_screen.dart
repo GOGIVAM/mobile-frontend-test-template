@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../utils/app_colors.dart';
-import '../../widgets/stat_card.dart';
-import '../../widgets/chatbot_widget.dart';
-import 'widgets/header.dart';
-import 'widgets/sidebar.dart';
-import 'widgets/sales_analysis_card.dart';
-import 'widgets/sales_bar_chart_card.dart';
-import 'widgets/orders_card.dart';
+import '../utils/app_colors.dart';
+import '../widgets/kpi_card.dart';
+import '../widgets/chatbot_widget.dart';
+import '../widgets/orders_table.dart';
+import 'home/widgets/header.dart';
+import 'home/widgets/sidebar.dart';
+import 'home/widgets/sales_analysis_card.dart';
+import 'home/widgets/sales_bar_chart_card.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +34,8 @@ class HomePage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                             child: Column(
                               children: [
-                                _buildStatRow(context),
-                                const SizedBox(height: 20),
+                                _buildKpiRow(),
+                                const SizedBox(height: 24),
                                 if (isMobile) ...[
                                   const SalesAnalysisCard(),
                                   const SizedBox(height: 20),
@@ -43,15 +43,15 @@ class HomePage extends StatelessWidget {
                                 ] else ...[
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const Expanded(flex: 2, child: SalesAnalysisCard()),
-                                      const SizedBox(width: 20),
-                                      const Expanded(flex: 1, child: SalesBarChartCard()),
+                                    children: const [
+                                      Expanded(flex: 3, child: SalesAnalysisCard()),
+                                      SizedBox(width: 20),
+                                      Expanded( child: SalesBarChartCard()),
                                     ],
                                   ),
                                 ],
                                 const SizedBox(height: 20),
-                                const OrdersCard(),
+                                const OrdersTable(),
                                 const SizedBox(height: 80),
                               ],
                             ),
@@ -62,7 +62,6 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              // Hover Chatbot positioned at the bottom right
               const Positioned(
                 bottom: 24,
                 right: 24,
@@ -75,14 +74,14 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildStatRow(BuildContext context) {
+  Widget _buildKpiRow() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
         children: const [
           SizedBox(
-            width: 300,
-            child: StatCard(
+            width: 310,
+            child: KpiCard(
               title: 'Sales',
               value: '250k',
               icon: Icons.bar_chart,
@@ -92,8 +91,8 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(width: 16),
           SizedBox(
-            width: 300,
-            child: StatCard(
+            width: 310,
+            child: KpiCard(
               title: 'Customers',
               value: '24m',
               icon: Icons.person,
@@ -103,8 +102,8 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(width: 16),
           SizedBox(
-            width: 300,
-            child: StatCard(
+            width: 310,
+            child: KpiCard(
               title: 'Products',
               value: '15k',
               icon: Icons.shopping_bag,
@@ -114,8 +113,8 @@ class HomePage extends StatelessWidget {
           ),
           SizedBox(width: 16),
           SizedBox(
-            width: 300,
-            child: StatCard(
+            width: 310,
+            child: KpiCard(
               title: 'Revenue',
               value: '180m',
               icon: Icons.attach_money,

@@ -8,7 +8,7 @@ class Sidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 200,
       height: double.infinity,
       decoration: const BoxDecoration(
         color: AppColors.surface,
@@ -23,7 +23,6 @@ class Sidebar extends StatelessWidget {
           const SizedBox(height: 40),
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 const CustomTile(icon: Icons.grid_view, title: 'Dashboards', isSelected: true, hasArrow: true),
                 _buildSubMenuItem('Analytics', isSelected: true),

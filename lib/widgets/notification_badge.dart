@@ -4,13 +4,14 @@ import '../utils/app_colors.dart';
 class NotificationBadge extends StatelessWidget {
   final String text;
   final String highlightedText;
+  final String? othertext;
   final IconData icon;
 
   const NotificationBadge({
     super.key,
     required this.text,
     required this.highlightedText,
-    this.icon = Icons.notifications_none,
+    this.icon = Icons.notifications_none, this.othertext,
   });
 
   @override
@@ -39,10 +40,11 @@ class NotificationBadge extends StatelessWidget {
                 TextSpan(
                   text: highlightedText,
                   style: const TextStyle(
-                    color: AppColors.warning,
+                    color: AppColors.success,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                TextSpan(text: othertext),
               ],
             ),
           ),

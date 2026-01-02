@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class AppColors {
   // Primary colors
   static const Color primary = Color(0xFF4A6CF7);
-  static const Color background = Color(0xFFF4F7FE);
+  static const Color background = Color(0xFFF8F8FB);
   static const Color surface = Colors.white;
 
   // Status colors
-  static const Color success = Color(0xFF28C76F);
+  static const Color success = Color(0xFF59BA50);
   static const Color warning = Color(0xFFFF9F43);
   static const Color info = Color(0xFF00CFE8);
   static const Color error = Color(0xFFEA5455);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'pages/home/home_page.dart';
+import 'pages/dashboard_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,9 +13,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4A6CF7)),
         useMaterial3: true,
-        fontFamily: 'GoogleFonts.poppins', // Note: actual font application requires google_fonts package usage in theme
       ),
-      home: const HomePage(),
+      home: const DashboardScreen(),
     );
   }
 }

@@ -14,7 +14,7 @@ class CustomSearchInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 30,
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
@@ -30,10 +30,10 @@ class CustomSearchInput extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: const TextStyle(color: AppColors.textLight, fontSize: 14),
-          prefixIcon: const Icon(Icons.search, color: AppColors.textSecondary, size: 20),
+          hintStyle: const TextStyle(color: AppColors.textLight, fontSize: 12),
+          suffixIcon: const Icon(Icons.search, color: AppColors.textSecondary, size: 24),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+          contentPadding: const EdgeInsets.symmetric( horizontal: 15),
         ),
       ),
     );

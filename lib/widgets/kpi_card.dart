@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 
-class StatCard extends StatelessWidget {
+class KpiCard extends StatelessWidget {
   final String title;
   final String value;
   final IconData icon;
   final Color iconColor;
   final Color iconBackgroundColor;
 
-  const StatCard({
+  const KpiCard({
     super.key,
     required this.title,
     required this.value,
@@ -40,11 +40,7 @@ class StatCard extends StatelessWidget {
               color: iconBackgroundColor,
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              icon,
-              color: iconColor,
-              size: 24,
-            ),
+            child: Icon(icon, color: iconColor, size: 24),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -54,19 +50,16 @@ class StatCard extends StatelessWidget {
               children: [
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: iconColor,
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: AppColors.textSecondary,
-                  ),
+                  style: const TextStyle(fontSize: 14, color: AppColors.textSecondary),
                   overflow: TextOverflow.ellipsis,
                 ),
               ],
