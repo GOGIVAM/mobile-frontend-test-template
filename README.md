@@ -12,7 +12,7 @@ This project is a Flutter application for delivery management, designed to demon
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone [REPO_URL]
+   git clone [https://github.com/GOGIVAM/mobile-frontend-test-template]
    ```
 2. Navigate to the project directory:
    ```bash
