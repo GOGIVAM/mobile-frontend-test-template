@@ -2,7 +2,7 @@
 
 This project is a Flutter application for delivery management, designed to demonstrate best practices in mobile development, software architecture, and documentation.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 * Flutter SDK (>= 3.0.0)
@@ -27,7 +27,7 @@ This project is a Flutter application for delivery management, designed to demon
    flutter run
    ```
 
-## 🏗️ Technical Architecture
+## Technical Architecture
 
 The project follows a modular and decoupled architecture to ensure maintainability and scalability.
 
@@ -43,13 +43,13 @@ For this project, we chose **GetX** as the state management solution for the fol
 - **Performance**: High-performance execution with intelligent memory management.
 - **Simplicity**: Easy to learn and implement dependency injection and navigation.
 
-## 🛠️ Technical Choices & Code Quality
+## Technical Choices & Code Quality
 - **Clean Code**: Explicit variable naming, adherence to Dart conventions (camelCase, linting).
 - **Stateless Widgets**: Preferred to maximize performance and reusability.
 - **Responsive UI**: Full support for Mobile, Tablet, and Desktop views using `LayoutBuilder`.
 - **Material 3**: Implementation of the latest Android design standards.
 
-## 📄 Evaluation Criteria Met
+## Evaluation Criteria Met
 1. **Quality & Architecture**: Clear organization into layers and naming conventions for automatic grading.
 2. **Documentation**: This README details installation, technical choices, and structure.
 3. **GitHub Process**: Structured and clear commits.
