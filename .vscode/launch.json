@@ -17,7 +17,7 @@
             "flutterMode": "profile"
         },
         {
-            "name": "mobile-frontend-test-template (release mode)",
+            "name": "mobile-frontend-test-template-release (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
