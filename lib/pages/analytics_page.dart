@@ -1,4 +1,3 @@
-// lib/pages/analytics_page.dart
 import 'package:flutter/material.dart';
 
 import '../utils/app_breakpoints.dart';
@@ -10,7 +9,6 @@ class AnalyticsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final isMobile = AppBreakpoints.isMobile(width);
-    final isDesktop = AppBreakpoints.isDesktop(width);
     return Scaffold(
       backgroundColor: const Color(0xFFF7FAFC),
       appBar: AppBar(

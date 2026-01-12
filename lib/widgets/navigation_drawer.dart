@@ -266,7 +266,7 @@ class CustomNavigationRail extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
         decoration: BoxDecoration(
           color: isSelected
-              ? const Color(0xFF6B8DE3).withOpacity(0.1)
+              ? const Color(0xFF6B8DE3).withValues(alpha:0.1)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
@@ -303,7 +303,7 @@ class CustomNavigationRail extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: isSelected
-                ? const Color(0xFF6B8DE3).withOpacity(0.1)
+                ? const Color(0xFF6B8DE3).withValues(alpha:0.1)
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(8),
           ),

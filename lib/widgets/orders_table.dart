@@ -37,7 +37,7 @@ class OrdersTable extends StatelessWidget {
                       child: DataTable(
                         columnSpacing: 20,
                         horizontalMargin: 0,
-                        headingRowColor: MaterialStateProperty.all(Colors.grey[50]),
+                        headingRowColor: WidgetStateProperty.all(Colors.grey[50]),
                         dataRowMinHeight: 60,
                         dataRowMaxHeight: 60,
                         columns: [
@@ -275,7 +275,7 @@ class OrdersTable extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: paymentColor.withOpacity(0.1),
+              color: paymentColor.withValues(alpha:0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
@@ -292,7 +292,7 @@ class OrdersTable extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: deliveryColor.withOpacity(0.1),
+              color: deliveryColor.withValues(alpha:0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(

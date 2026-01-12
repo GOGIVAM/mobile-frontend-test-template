@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: AppColors.background,
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.blue),
         useMaterial3: true,
         cardTheme: CardThemeData(
           elevation: 2,
@@ -35,7 +35,7 @@ Widget customErrorBuilder(FlutterErrorDetails details) {
   return Container(
     alignment: Alignment.center,
     margin: const EdgeInsets.symmetric(horizontal: 16),
-    child: Center(
+    child: const Center(
       child:Text('Screen Not available'),
     ),
   );

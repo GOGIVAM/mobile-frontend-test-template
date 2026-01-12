@@ -33,7 +33,7 @@ class CustomBarChart extends StatelessWidget {
                   alignment: BarChartAlignment.spaceAround,
                   maxY: 25,
                   minY: 0,
-                  gridData: FlGridData(
+                  gridData: const FlGridData(
                     show: false,
                   ),
                   borderData: FlBorderData(

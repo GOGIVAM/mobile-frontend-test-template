@@ -130,8 +130,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           LayoutBuilder(
             builder: (_, constraints) {
-              final crossCount =
-                  (constraints.maxWidth / 220).floor().clamp(1, 4);
               return GridView.count(
                 crossAxisCount:
                     AppBreakpoints.isMobile(constraints.maxWidth) ? 2 : 4,
@@ -221,11 +219,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               width: 8,
             ),
             Badge(
+              backgroundColor: AppColors.green,
               child: Icon(
                 Icons.notifications,
                 color: Colors.orange,
               ),
-              backgroundColor: AppColors.green,
             ),
             SizedBox(
               width: 8,
