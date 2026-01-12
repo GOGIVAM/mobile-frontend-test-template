@@ -29,11 +29,11 @@ class CustomLineChart extends ConsumerWidget {
           horizontalInterval: maxYValue / 5, // dynamic interval
           verticalInterval: 1,
           getDrawingHorizontalLine: (value) => FlLine(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha:0.1),
             strokeWidth: 1,
           ),
           getDrawingVerticalLine: (value) => FlLine(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.grey.withValues(alpha:0.1),
             strokeWidth: 1,
           ),
         ),
@@ -100,9 +100,9 @@ class CustomLineChart extends ConsumerWidget {
         show: true,
         gradient: LinearGradient(
           colors: [
-            color.withOpacity(0.3),
-            color.withOpacity(0.1),
-            color.withOpacity(0.0),
+            color.withValues(alpha:0.3),
+            color.withValues(alpha:0.1),
+            color.withValues(alpha:0.0),
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -115,7 +115,7 @@ class CustomLineChart extends ConsumerWidget {
     return LineTouchData(
       enabled: true,
       touchTooltipData: LineTouchTooltipData(
-        tooltipBorder: BorderSide(color: Colors.black.withOpacity(0.8)),
+        tooltipBorder: BorderSide(color: Colors.black.withValues(alpha:0.8)),
         tooltipBorderRadius: BorderRadius.circular(8),
         tooltipPadding: const EdgeInsets.all(12),
         getTooltipItems: (touchedSpots) {

@@ -79,7 +79,7 @@ class OrdersTable extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha:0.04),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -349,7 +349,7 @@ class OrdersTable extends ConsumerWidget {
       decoration: BoxDecoration(
         color: status.toLowerCase() == 'paid'
             ? Colors.transparent
-            : color.withOpacity(0.1),
+            : color.withValues(alpha:0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -470,7 +470,7 @@ class SwipeableOrderCard extends ConsumerWidget {
               ],
             ),
           );
-          if (confirm == true) {
+          if (confirm == true && context.mounted) {
             ref
                 .read(orderProvider.notifier)
                 .swipeToAction(order.id, OrderAction.delete);

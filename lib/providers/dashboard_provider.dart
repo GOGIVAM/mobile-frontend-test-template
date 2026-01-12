@@ -161,7 +161,7 @@ class DashboardNotifier extends StateNotifier<DashboardState> {
       List<OrderModel> orders) {
     final Map<String, int> salesByCountry = {};
     for (var order in orders) {
-      final country = order.customerCountry ?? 'Unknown';
+      final country = order.customerCountry;
       salesByCountry[country] = (salesByCountry[country] ?? 0) + 1;
     }
 
@@ -240,6 +240,7 @@ class DashboardNotifier extends StateNotifier<DashboardState> {
         chartData: chartData,
         salesMetrics: salesMetrics,
         barGroups: barGroups,
+      barLabels: labels
     );
   }
 

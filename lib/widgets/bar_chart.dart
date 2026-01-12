@@ -83,7 +83,7 @@ class CustomBarChart extends ConsumerWidget {
                     enabled: true,
                     touchTooltipData: BarTouchTooltipData(
                       tooltipBorder: BorderSide(
-                        color: Colors.black.withOpacity(0.8),
+                        color: Colors.black.withValues(alpha:0.8),
                       ),
                       tooltipBorderRadius: BorderRadius.circular(8),
                       tooltipPadding: const EdgeInsets.all(10),
