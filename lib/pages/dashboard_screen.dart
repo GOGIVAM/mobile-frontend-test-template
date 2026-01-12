@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:module_1/pages/products_page.dart';
+import 'package:module_1/pages/reports_page.dart';
 import '../models/nav_items.dart';
 import '../utils/app_breakpoints.dart';
 import '../utils/app_colors.dart';
@@ -8,6 +10,7 @@ import '../widgets/orders_table.dart';
 import '../widgets/line_chart.dart';
 import '../widgets/bar_chart.dart';
 import '../widgets/navigation_drawer.dart';
+import 'analytics_page.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -18,6 +21,12 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    const AnalyticsPage(),
+    const ReportsPage(),
+    const ProductsPage(),
+  ];
 
   void _onItemTapped(int index) {
     setState(() => _selectedIndex = index);
@@ -35,7 +44,93 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // KPI Cards (grid responsive)
+           Row(
+              children: [
+                const Row(
+                  spacing: 2,
+                  children: [
+                    Icon(
+                      Icons.home_outlined,
+                      size: 16,
+                      color: AppColors.blue,
+                    ),
+                    Text(
+                      'Home',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios_sharp,
+                      size: 12,
+                    ),
+                    Text('Sales', style: TextStyle(fontSize: 12))
+                  ],
+                ),
+                Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      spacing: 16,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: AppColors.cardBg),
+                          padding: const EdgeInsets.all(8),
+                          width: 200,
+                          child: const Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Search anything'),
+                              Icon(Icons.search)
+                            ],
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: AppColors.cardBg),
+                          padding: const EdgeInsets.all(8),
+                          child: Row(
+                            children: [
+                              RichText(
+                                  text: const TextSpan(
+                                      style: TextStyle(
+                                          color: Colors.black),
+                                      children: [
+                                        TextSpan(text: 'You have '),
+                                        TextSpan(
+                                            text: '21 ',
+                                            style: TextStyle(
+                                                color: AppColors.green)),
+                                        TextSpan(text: 'new leads'),
+                                      ])),
+                              const Badge(
+                                backgroundColor: AppColors.green,
+                                child: Icon(
+                                  Icons.notifications,
+                                  color: Colors.orange,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                            width: 68,
+                            child: Text(
+                              'Abigail Helen',
+                              overflow: TextOverflow.ellipsis,
+                            )),
+                        const Badge(
+                          backgroundColor: AppColors.green,
+                          child: CircleAvatar(
+                            child: Text('A.H'),
+                          ),
+                        )
+                      ],
+                    ))
+              ],
+            ),
+          SizedBox(height: 32,),
           LayoutBuilder(
             builder: (_, constraints) {
               final crossCount =
@@ -148,7 +243,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           selectedIndex: _selectedIndex,
           onItemTapped: _onItemTapped,
         ),
-        body: bodyContent,
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: [bodyContent, ..._pages],
+        ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _selectedIndex.clamp(0, 3),
           // limit to 4 for bottom bar
@@ -170,7 +268,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onDestinationSelected: _onItemTapped,
               isRailExtended: isDesktop,
             ),
-            Expanded(child: bodyContent),
+            Expanded(child: IndexedStack(
+              index: _selectedIndex,
+              children: [
+                bodyContent,
+                ..._pages
+              ],
+            ))
           ],
         ),
       );
@@ -217,7 +321,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     borderRadius: BorderRadius.circular(8)),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: const Text('View Reports',style: TextStyle(color: Colors.white),),
+                child: const Text(
+                  'View Reports',
+                  style: TextStyle(color: Colors.white),
+                ),
               )
             ],
           ),
@@ -245,7 +352,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     .toList(),
               ),
               const SizedBox(height: 340, child: CustomLineChart()),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               Row(

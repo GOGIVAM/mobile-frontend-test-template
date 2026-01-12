@@ -1,26 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:module_1/pages/dashboard_screen.dart';
 import 'package:module_1/utils/app_colors.dart';
-import 'app.dart';
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Dashboard App',
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: const MainScreen(),
-//     );
-//   }
-// }
 
 
 void main() {
+  ErrorWidget.builder = customErrorBuilder;
   runApp(const MyApp());
 }
 
@@ -44,4 +28,15 @@ class MyApp extends StatelessWidget {
       home: const DashboardScreen(),
     );
   }
+}
+
+
+Widget customErrorBuilder(FlutterErrorDetails details) {
+  return Container(
+    alignment: Alignment.center,
+    margin: const EdgeInsets.symmetric(horizontal: 16),
+    child: Center(
+      child:Text('Screen Not available'),
+    ),
+  );
 }
