@@ -9,162 +9,6 @@ import '../widgets/line_chart.dart';
 import '../widgets/bar_chart.dart';
 import '../widgets/navigation_drawer.dart';
 
-// class DashboardScreen extends StatelessWidget {
-//   const DashboardScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFF7FAFC),
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 0,
-//         title: const Row(
-//           children: [
-//             Icon(Icons.home_outlined, color: Color(0xFF5B6FED)),
-//             SizedBox(width: 8),
-//             Text(
-//               'Home',
-//               style: TextStyle(
-//                 color: Color(0xFF2D3748),
-//                 fontSize: 16,
-//                 fontWeight: FontWeight.w500,
-//               ),
-//             ),
-//             SizedBox(width: 8),
-//             Icon(Icons.chevron_right, color: Colors.grey, size: 20),
-//             SizedBox(width: 8),
-//             Text(
-//               'Sales',
-//               style: TextStyle(
-//                 color: Color(0xFF2D3748),
-//                 fontSize: 16,
-//                 fontWeight: FontWeight.w500,
-//               ),
-//             ),
-//           ],
-//         ),
-//         actions: [
-//           Padding(
-//             padding: const EdgeInsets.only(right: 16),
-//             child: Row(
-//               children: [
-//                 Container(
-//                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                   decoration: BoxDecoration(
-//                     color: Colors.green[50],
-//                     borderRadius: BorderRadius.circular(20),
-//                   ),
-//                   child: const Row(
-//                     children: [
-//                       Text(
-//                         'You have ',
-//                         style: TextStyle(fontSize: 13, color: Color(0xFF2D3748)),
-//                       ),
-//                       Text(
-//                         '21',
-//                         style: TextStyle(
-//                           fontSize: 13,
-//                           color: Colors.green,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                       Text(
-//                         ' new leads',
-//                         style: TextStyle(fontSize: 13, color: Color(0xFF2D3748)),
-//                       ),
-//                       SizedBox(width: 4),
-//                       Icon(Icons.celebration, color: Colors.amber, size: 18),
-//                     ],
-//                   ),
-//                 ),
-//                 const SizedBox(width: 16),
-//                 const CircleAvatar(
-//                   radius: 18,
-//                   backgroundColor: Color(0xFF5B6FED),
-//                   child: Icon(Icons.person, color: Colors.white, size: 20),
-//                 ),
-//                 const SizedBox(width: 8),
-//                 Text(
-//                   'Abigale He...',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     color: Colors.grey[700],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//       drawer: const AppNavigationDrawer(),
-//       body: SingleChildScrollView(
-//         padding: const EdgeInsets.all(20),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             // KPI Cards Row
-//             GridView.count(
-//               shrinkWrap: true,
-//               physics: const NeverScrollableScrollPhysics(),
-//               crossAxisCount: 4,
-//               mainAxisSpacing: 16,
-//               crossAxisSpacing: 16,
-//               childAspectRatio: 2.5,
-//               children: const [
-//                 KpiCard(
-//                   icon: Icons.access_time,
-//                   value: '250k',
-//                   label: 'Sales',
-//                   color: Color(0xFFFF6B6B),
-//                 ),
-//                 KpiCard(
-//                   icon: Icons.emoji_emotions,
-//                   value: '24m',
-//                   label: 'Customers',
-//                   color: Color(0xFF5B6FED),
-//                 ),
-//                 KpiCard(
-//                   icon: Icons.shopping_bag,
-//                   value: '15k',
-//                   label: 'Products',
-//                   color: Color(0xFFFFB020),
-//                 ),
-//                 KpiCard(
-//                   icon: Icons.shopping_bag_outlined,
-//                   value: '180m',
-//                   label: 'Revenue',
-//                   color: Color(0xFF51CF66),
-//                 ),
-//               ],
-//             ),
-//             const SizedBox(height: 24),
-//             // Charts Row
-//             const Row(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Expanded(
-//                   flex: 2,
-//                   child: LineChart(),
-//                 ),
-//                 SizedBox(width: 20),
-//                 Expanded(
-//                   flex: 1,
-//                   child: BarChart(),
-//                 ),
-//               ],
-//             ),
-//             const SizedBox(height: 24),
-//             // Orders Table
-//             const OrdersTable(),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -194,19 +38,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
           // KPI Cards (grid responsive)
           LayoutBuilder(
             builder: (_, constraints) {
-              final crossCount = (constraints.maxWidth / 220).floor().clamp(1, 4);
+              final crossCount =
+                  (constraints.maxWidth / 220).floor().clamp(1, 4);
               return GridView.count(
-                crossAxisCount: crossCount,
+                crossAxisCount:
+                    AppBreakpoints.isMobile(constraints.maxWidth) ? 2 : 4,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                childAspectRatio: 1.5,
+                childAspectRatio: 2,
                 children: const [
-                  KpiCard(title: 'Sales', value: '250k', color: AppColors.kpiSales, icon: Icons.trending_up),
-                  KpiCard(title: 'Customers', value: '24m', color: AppColors.kpiCustomers, icon: Icons.people),
-                  KpiCard(title: 'Products', value: '15k', color: AppColors.kpiProducts, icon: Icons.inventory),
-                  KpiCard(title: 'Revenue', value: '180m', color: AppColors.kpiRevenue, icon: Icons.attach_money),
+                  KpiCard(
+                      title: 'Sales',
+                      value: '250k',
+                      color: AppColors.orangeAccent,
+                      icon: Icons.trending_up),
+                  KpiCard(
+                      title: 'Customers',
+                      value: '24m',
+                      color: AppColors.blue,
+                      icon: Icons.people),
+                  KpiCard(
+                      title: 'Products',
+                      value: '15k',
+                      color: AppColors.orange,
+                      icon: Icons.inventory),
+                  KpiCard(
+                      title: 'Revenue',
+                      value: '180m',
+                      color: AppColors.green,
+                      icon: Icons.attach_money),
                 ],
               );
             },
@@ -216,20 +78,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
           // Charts (stack on mobile/tablet, side-by-side on desktop)
           isDesktop
               ? Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(flex: 3, child: _buildSalesChartSection()),
-              const SizedBox(width: 24),
-              Expanded(flex: 2, child: CustomBarChart()),
-            ],
-          )
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(flex: 3, child: _buildSalesChartSection()),
+                    const SizedBox(width: 24),
+                    const Expanded(flex: 1, child: CustomBarChart()),
+                  ],
+                )
               : Column(
-            children: [
-              _buildSalesChartSection(),
-              const SizedBox(height: 32),
-              CustomBarChart(),
-            ],
-          ),
+                  children: [
+                    _buildSalesChartSection(),
+                    const SizedBox(height: 32),
+                    const CustomBarChart(),
+                  ],
+                ),
 
           const SizedBox(height: 32),
           const OrdersTable(),
@@ -242,11 +104,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (isMobile) {
       scaffold = Scaffold(
         appBar: AppBar(
-          title: const Text('Sales Dashboard'),
-          actions: [
-            IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
+          title: const Row(
+            spacing: 2,
+            children: [
+              Icon(
+                Icons.home_outlined,
+                size: 16,
+                color: AppColors.blue,
+              ),
+              Text(
+                'Home',
+                style: TextStyle(fontSize: 12),
+              ),
+              Icon(
+                Icons.arrow_forward_ios_sharp,
+                size: 12,
+              ),
+              Text('Sales', style: TextStyle(fontSize: 12))
+            ],
+          ),
+          actions: const [
+            Icon(Icons.search),
+            SizedBox(
+              width: 8,
+            ),
+            Badge(
+              child: Icon(
+                Icons.notifications,
+                color: Colors.orange,
+              ),
+              backgroundColor: AppColors.green,
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 16),
               child: CircleAvatar(radius: 16, child: Text('A')),
             ),
           ],
@@ -257,7 +150,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         body: bodyContent,
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex.clamp(0, 3), // limit to 4 for bottom bar
+          currentIndex: _selectedIndex.clamp(0, 3),
+          // limit to 4 for bottom bar
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: AppColors.primary,
@@ -286,28 +180,163 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildSalesChartSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(color: AppColors.cardBg),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Column(
+            spacing: 8,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SalesData(
+                title: 'Overall Sales',
+                subtitle: '12 millions',
+                color: AppColors.blue,
+              ),
+              const SalesData(
+                title: 'Overall Revenue',
+                subtitle: '78 millions',
+                color: AppColors.green,
+              ),
+              const SalesData(
+                title: 'Overall Earnings',
+                subtitle: '12 millions',
+                color: AppColors.orange,
+              ),
+              const SalesData(
+                title: 'New customers',
+                subtitle: '23k',
+                color: AppColors.orangeAccent,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: AppColors.blue,
+                    borderRadius: BorderRadius.circular(8)),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: const Text('View Reports',style: TextStyle(color: Colors.white),),
+              )
+            ],
+          ),
+          const SizedBox(width: 124),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                runAlignment: WrapAlignment.end,
+                children: ['Today', 'Yesterday', '7 days', '15 days', '30 days']
+                    .map((label) => FilterChip(
+                          label: Text(label),
+                          selectedColor: AppColors.green,
+                          selected: label == 'Today',
+                          showCheckmark: false,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(8),
+                              side:
+                                  const BorderSide(color: Colors.transparent)),
+                          onSelected: (_) {},
+                        ))
+                    .toList(),
+              ),
+              const SizedBox(height: 340, child: CustomLineChart()),
+              SizedBox(
+                height: 24,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 12,
+                        height: 12,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF5B7FE8),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Sales',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 24),
+                  Row(
+                    children: [
+                      Container(
+                        width: 12,
+                        height: 12,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF5DCCF5),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Revenue',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          )),
+        ],
+      ),
+    );
+  }
+}
+
+class SalesData extends StatelessWidget {
+  const SalesData({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.color,
+  });
+
+  final String title;
+  final String subtitle;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 8,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Overall Sales', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: ['Today', 'Yesterday', '7 days', '15 days', '30 days']
-                  .map((label) => FilterChip(
-                label: Text(label),
-                selected: label == 'Today',
-                onSelected: (_) {},
-              ))
-                  .toList(),
-            ),
-          ],
+        CircleAvatar(
+          radius: 6,
+          backgroundColor: color,
         ),
-        const SizedBox(height: 16),
-        SizedBox(height: 340, child: CustomLineChart()),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              subtitle,
+            )
+          ],
+        )
       ],
     );
   }

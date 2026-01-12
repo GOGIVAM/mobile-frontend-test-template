@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
+import '../models/nav_items.dart';
+import '../utils/app_breakpoints.dart';
+import '../utils/app_colors.dart';
 
 class ResponsiveNavigation extends StatelessWidget {
   final int selectedIndex;
@@ -29,8 +31,8 @@ class ResponsiveNavigation extends StatelessWidget {
       backgroundColor: Colors.white,
       selectedIndex: selectedIndex,
       onDestinationSelected: onDestinationSelected,
-      labelType: isRailExtended ? NavigationRailLabelType.all : NavigationRailLabelType.selected,
-      indicatorColor: AppColors.primary.withOpacity(0.2),
+      labelType: isRailExtended ? NavigationRailLabelType.none : NavigationRailLabelType.selected,
+      indicatorColor: AppColors.primary.withValues(alpha: 0.2),
       destinations: mainNavItems.map((item) {
         return NavigationRailDestination(
           icon: Icon(item.icon),
@@ -58,9 +60,9 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
+          const DrawerHeader(
             decoration: BoxDecoration(color: AppColors.primary),
-            child: const Text(
+            child: Text(
               'Menu',
               style: TextStyle(color: Colors.white, fontSize: 24),
             ),
