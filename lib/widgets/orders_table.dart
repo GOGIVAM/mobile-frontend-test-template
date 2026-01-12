@@ -596,9 +596,9 @@ class OrderCardContent extends StatelessWidget {
   Widget _buildCompactStatusBadge(String status, Color color, bool showTick) {
     return Row(
       children: [
-        if (showTick)
+        if (status == 'Paid')
           Icon(
-            Icons.verified_outlined,
+            Icons.check_circle_outline,
             color: color,
           ),
         Container(

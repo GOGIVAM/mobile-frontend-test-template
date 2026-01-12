@@ -114,17 +114,45 @@ class DashboardNotifier extends StateNotifier<DashboardState> {
   static List<BarChartGroupData> _generateInitialBarGroups() {
     return [
       BarChartGroupData(x: 0, barRods: [
-        BarChartRodData(toY: 10, color: const Color(0xFF6B8DE3), width: 40)
-      ]),
+        BarChartRodData(
+          toY: 3,
+          color: const Color(0xFF6B8DE3),
+          width: 50,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(6),
+            topRight: Radius.circular(6),
+          ),
+        ),      ]),
       BarChartGroupData(x: 1, barRods: [
-        BarChartRodData(toY: 14, color: const Color(0xFF6B8DE3), width: 40)
-      ]),
+        BarChartRodData(
+          toY: 10,
+          color: const Color(0xFF6B8DE3),
+          width: 50,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(6),
+            topRight: Radius.circular(6),
+          ),
+        ),      ]),
       BarChartGroupData(x: 2, barRods: [
-        BarChartRodData(toY: 19, color: const Color(0xFF6B8DE3), width: 40)
-      ]),
+        BarChartRodData(
+          toY: 15,
+          color: const Color(0xFF6B8DE3),
+          width: 50,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(6),
+            topRight: Radius.circular(6),
+          ),
+        ),      ]),
       BarChartGroupData(x: 3, barRods: [
-        BarChartRodData(toY: 23, color: const Color(0xFF6B8DE3), width: 40)
-      ]),
+        BarChartRodData(
+          toY: 23,
+          color: const Color(0xFF6B8DE3),
+          width: 50,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(6),
+            topRight: Radius.circular(6),
+          ),
+        ),      ]),
     ];
   }
 
