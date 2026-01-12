@@ -12,7 +12,8 @@ class KpiCard extends StatelessWidget {
       required this.title,
       required this.value,
       required this.color,
-      required this.icon});
+      required this.icon,
+      required double changePercentage});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,11 @@ class KpiCard extends StatelessWidget {
         children: [
           CircleAvatar(
               backgroundColor: color,
-              child: Icon(icon, size: 32,color: AppColors.cardBg,)),
+              child: Icon(
+                icon,
+                size: 32,
+                color: AppColors.cardBg,
+              )),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -90,7 +90,7 @@ class CustomNavigationRail extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: isRailExtended
                 ? Image.asset(
-                    'assets/images/logo.png', // Your logo asset path
+                    'assets/images/logo.png',
                     fit: BoxFit.contain,
                   )
                 : Container(

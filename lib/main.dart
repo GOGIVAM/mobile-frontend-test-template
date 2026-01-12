@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:module_1/pages/dashboard_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:module_1/utils/app_colors.dart';
+
+import 'app.dart';
 
 
 void main() {
   ErrorWidget.builder = customErrorBuilder;
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

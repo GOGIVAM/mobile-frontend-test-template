@@ -1,29 +1,32 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../providers/dashboard_provider.dart';
 import '../utils/app_colors.dart';
 
-class CustomBarChart extends StatelessWidget {
+class CustomBarChart extends ConsumerWidget {
   const CustomBarChart({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final barGroups = ref.watch(barChartDataProvider);
+    final barLabels = ref.watch(barChartLabelsProvider);
+
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-          color: AppColors.cardBg
-      ),
+      decoration: const BoxDecoration(color: AppColors.cardBg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-              'Sales',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF2D3748),
-              ),
+            'Sales',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF2D3748),
             ),
+          ),
           SizedBox(
             height: 300,
             child: Padding(
@@ -31,14 +34,15 @@ class CustomBarChart extends StatelessWidget {
               child: BarChart(
                 BarChartData(
                   alignment: BarChartAlignment.spaceAround,
-                  maxY: 25,
+                  maxY: barGroups.isNotEmpty
+                      ? barGroups
+                      .map((g) => g.barRods[0].toY)
+                      .reduce((a, b) => a > b ? a : b) +
+                      5
+                      : 25,
                   minY: 0,
-                  gridData: const FlGridData(
-                    show: false,
-                  ),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
+                  gridData: const FlGridData(show: false),
+                  borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(
                     show: true,
                     rightTitles: const AxisTitles(
@@ -55,13 +59,12 @@ class CustomBarChart extends StatelessWidget {
                         showTitles: true,
                         reservedSize: 40,
                         getTitlesWidget: (value, meta) {
-                          const countries = ['Usa', 'Ind', 'Brz', 'Mex'];
                           if (value.toInt() >= 0 &&
-                              value.toInt() < countries.length) {
+                              value.toInt() < barLabels.length) {
                             return Padding(
                               padding: const EdgeInsets.only(top: 12.0),
                               child: Text(
-                                countries[value.toInt()],
+                                barLabels[value.toInt()],
                                 style: TextStyle(
                                   color: Colors.grey[700],
                                   fontSize: 14,
@@ -75,92 +78,37 @@ class CustomBarChart extends StatelessWidget {
                       ),
                     ),
                   ),
-                  barGroups: [
-                    BarChartGroupData(
-                      x: 0,
-                      barRods: [
-                        BarChartRodData(
-                          toY: 10,
-                          color: const Color(0xFF6B8DE3),
-                          width: 50,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(6),
-                            topRight: Radius.circular(6),
-                          ),
-                        ),
-                      ],
-                    ),
-                    BarChartGroupData(
-                      x: 1,
-                      barRods: [
-                        BarChartRodData(
-                          toY: 14,
-                          color: const Color(0xFF6B8DE3),
-                          width: 50,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(6),
-                            topRight: Radius.circular(6),
-                          ),
-                        ),
-                      ],
-                    ),
-                    BarChartGroupData(
-                      x: 2,
-                      barRods: [
-                        BarChartRodData(
-                          toY: 19,
-                          color: const Color(0xFF6B8DE3),
-                          width: 50,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(6),
-                            topRight: Radius.circular(6),
-                          ),
-                        ),
-                      ],
-                    ),
-                    BarChartGroupData(
-                      x: 3,
-                      barRods: [
-                        BarChartRodData(
-                          toY: 23,
-                          color: const Color(0xFF6B8DE3),
-                          width: 50,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(6),
-                            topRight: Radius.circular(6),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  barGroups: barGroups,
                   barTouchData: BarTouchData(
                     enabled: true,
                     touchTooltipData: BarTouchTooltipData(
                       tooltipBorder: BorderSide(
-                        color: Colors.black.withValues(alpha: 0.8),
+                        color: Colors.black.withOpacity(0.8),
                       ),
                       tooltipBorderRadius: BorderRadius.circular(8),
                       tooltipPadding: const EdgeInsets.all(10),
                       getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                        const countries = ['USA', 'India', 'Brazil', 'Mexico'];
-                        return BarTooltipItem(
-                          '${countries[groupIndex]}\n',
-                          const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: '${rod.toY.toInt()}',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                        if (groupIndex < barLabels.length) {
+                          return BarTooltipItem(
+                            '${barLabels[groupIndex]}\n',
+                            const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
                             ),
-                          ],
-                        );
+                            children: [
+                              TextSpan(
+                                text: '${rod.toY.toInt()}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        return null;
                       },
                     ),
                   ),
@@ -168,30 +116,30 @@ class CustomBarChart extends StatelessWidget {
               ),
             ),
           ),
-           Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    '2100',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2D3748),
-                    ),
+          Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  '2100',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2D3748),
                   ),
-                  Text(
-                    '12% higher than last month.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w400,
-                    ),
+                ),
+                Text(
+                  '12% higher than last month.',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
         ],
       ),
     );
