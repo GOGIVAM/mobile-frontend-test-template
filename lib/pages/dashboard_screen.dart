@@ -44,7 +44,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Row(
+          if (isDesktop)
+            Row(
               children: [
                 const Row(
                   spacing: 2,
@@ -67,70 +68,66 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 Expanded(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      spacing: 16,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: AppColors.cardBg),
-                          padding: const EdgeInsets.all(8),
-                          width: 200,
-                          child: const Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('Search anything'),
-                              Icon(Icons.search)
-                            ],
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  spacing: 16,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.cardBg),
+                      padding: const EdgeInsets.all(8),
+                      width: 200,
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text('Search anything'), Icon(Icons.search)],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: AppColors.cardBg),
+                      padding: const EdgeInsets.all(8),
+                      child: Row(
+                        children: [
+                          RichText(
+                              text: const TextSpan(
+                                  style: TextStyle(color: Colors.black),
+                                  children: [
+                                TextSpan(text: 'You have '),
+                                TextSpan(
+                                    text: '21 ',
+                                    style: TextStyle(color: AppColors.green)),
+                                TextSpan(text: 'new leads'),
+                              ])),
+                          const Badge(
+                            backgroundColor: AppColors.green,
+                            child: Icon(
+                              Icons.notifications,
+                              color: Colors.orange,
+                            ),
                           ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: AppColors.cardBg),
-                          padding: const EdgeInsets.all(8),
-                          child: Row(
-                            children: [
-                              RichText(
-                                  text: const TextSpan(
-                                      style: TextStyle(
-                                          color: Colors.black),
-                                      children: [
-                                        TextSpan(text: 'You have '),
-                                        TextSpan(
-                                            text: '21 ',
-                                            style: TextStyle(
-                                                color: AppColors.green)),
-                                        TextSpan(text: 'new leads'),
-                                      ])),
-                              const Badge(
-                                backgroundColor: AppColors.green,
-                                child: Icon(
-                                  Icons.notifications,
-                                  color: Colors.orange,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                            width: 68,
-                            child: Text(
-                              'Abigail Helen',
-                              overflow: TextOverflow.ellipsis,
-                            )),
-                        const Badge(
-                          backgroundColor: AppColors.green,
-                          child: CircleAvatar(
-                            child: Text('A.H'),
-                          ),
-                        )
-                      ],
-                    ))
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                        width: 68,
+                        child: Text(
+                          'Abigail Helen',
+                          overflow: TextOverflow.ellipsis,
+                        )),
+                    const Badge(
+                      backgroundColor: AppColors.green,
+                      child: CircleAvatar(
+                        child: Text('A.H'),
+                      ),
+                    )
+                  ],
+                ))
               ],
             ),
-          SizedBox(height: 32,),
+          const SizedBox(
+            height: 32,
+          ),
           LayoutBuilder(
             builder: (_, constraints) {
               final crossCount =
@@ -175,14 +172,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(flex: 3, child: _buildSalesChartSection()),
+                    Expanded(flex: 3, child: _buildSalesChartSection(false)),
                     const SizedBox(width: 24),
                     const Expanded(flex: 1, child: CustomBarChart()),
                   ],
                 )
               : Column(
                   children: [
-                    _buildSalesChartSection(),
+                    _buildSalesChartSection(true),
                     const SizedBox(height: 32),
                     const CustomBarChart(),
                   ],
@@ -248,12 +245,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [bodyContent, ..._pages],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex.clamp(0, 3),
+          currentIndex: _selectedIndex.clamp(0, 2),
           // limit to 4 for bottom bar
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: AppColors.primary,
-          items: mainNavItems.take(4).map((e) {
+          selectedItemColor: AppColors.blue,
+          items: mainNavItems.take(3).map((e) {
             return BottomNavigationBarItem(icon: Icon(e.icon), label: e.label);
           }).toList(),
         ),
@@ -268,12 +265,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onDestinationSelected: _onItemTapped,
               isRailExtended: isDesktop,
             ),
-            Expanded(child: IndexedStack(
+            Expanded(
+                child: IndexedStack(
               index: _selectedIndex,
-              children: [
-                bodyContent,
-                ..._pages
-              ],
+              children: [bodyContent, ..._pages],
             ))
           ],
         ),
@@ -283,7 +278,132 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return scaffold;
   }
 
-  Widget _buildSalesChartSection() {
+  Widget _buildSalesChartSection(bool isMobile) {
+    if(isMobile) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(color: AppColors.cardBg),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  spacing: 8,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SalesData(
+                      title: 'Overall Sales',
+                      subtitle: '12 millions',
+                      color: AppColors.blue,
+                    ),
+                    const SalesData(
+                      title: 'Overall Revenue',
+                      subtitle: '78 millions',
+                      color: AppColors.green,
+                    ),
+                    const SalesData(
+                      title: 'Overall Earnings',
+                      subtitle: '12 millions',
+                      color: AppColors.orange,
+                    ),
+                    const SalesData(
+                      title: 'New customers',
+                      subtitle: '23k',
+                      color: AppColors.orangeAccent,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.blue,
+                          borderRadius: BorderRadius.circular(8)),
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: const Text(
+                        'View Reports',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(width: 16,),
+                Expanded(
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    runAlignment: WrapAlignment.end,
+                    children: ['Today', 'Yesterday', '7 days', '15 days', '30 days']
+                        .map((label) => FilterChip(
+                      label: Text(label),
+                      selectedColor: AppColors.green,
+                      selected: label == 'Today',
+                      showCheckmark: false,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(8),
+                          side:
+                          const BorderSide(color: Colors.transparent)),
+                      onSelected: (_) {},
+                    ))
+                        .toList(),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 240, child: CustomLineChart()),
+            const SizedBox(
+              height: 24,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF5B7FE8),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Sales',
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 24),
+                Row(
+                  children: [
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF5DCCF5),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Revenue',
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(color: AppColors.cardBg),

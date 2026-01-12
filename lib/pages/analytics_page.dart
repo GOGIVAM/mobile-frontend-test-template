@@ -1,11 +1,16 @@
 // lib/pages/analytics_page.dart
 import 'package:flutter/material.dart';
 
+import '../utils/app_breakpoints.dart';
+
 class AnalyticsPage extends StatelessWidget {
   const AnalyticsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final isMobile = AppBreakpoints.isMobile(width);
+    final isDesktop = AppBreakpoints.isDesktop(width);
     return Scaffold(
       backgroundColor: const Color(0xFFF7FAFC),
       appBar: AppBar(
@@ -37,7 +42,7 @@ class AnalyticsPage extends StatelessWidget {
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 3,
+              crossAxisCount: isMobile?2:3,
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
               childAspectRatio: 1.5,
@@ -118,29 +123,35 @@ class AnalyticsPage extends StatelessWidget {
             child: Icon(Icons.trending_up, color: color, size: 20),
           ),
           const SizedBox(height: 12),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[600],
+          Flexible(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey[600],
+              ),
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF2D3748),
+          Flexible(
+            child: Text(
+              value,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2D3748),
+              ),
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            change,
-            style: TextStyle(
-              fontSize: 13,
-              color: change.startsWith('+') ? Colors.green : Colors.red,
-              fontWeight: FontWeight.w500,
+          Flexible(
+            child: Text(
+              change,
+              style: TextStyle(
+                fontSize: 13,
+                color: change.startsWith('+') ? Colors.green : Colors.red,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ],
