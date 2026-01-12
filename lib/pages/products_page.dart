@@ -1,11 +1,16 @@
 // lib/pages/products_page.dart
 import 'package:flutter/material.dart';
 
+import '../utils/app_breakpoints.dart';
+
 class ProductsPage extends StatelessWidget {
   const ProductsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final isMobile = AppBreakpoints.isMobile(width);
+    final isDesktop = AppBreakpoints.isDesktop(width);
     return Scaffold(
       backgroundColor: const Color(0xFFF7FAFC),
       appBar: AppBar(
@@ -45,7 +50,7 @@ class ProductsPage extends StatelessWidget {
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 4,
+              crossAxisCount: isDesktop?4:2,
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
               childAspectRatio: 0.85,
@@ -184,30 +189,36 @@ class ProductsPage extends StatelessWidget {
             child: Icon(icon, color: color, size: 40),
           ),
           const SizedBox(height: 16),
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF2D3748),
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            price,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF5B6FED),
+          Flexible(
+            child: Text(
+              name,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF2D3748),
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            stock,
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[600],
+          Flexible(
+            child: Text(
+              price,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF5B6FED),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Flexible(
+            child: Text(
+              stock,
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey[600],
+              ),
             ),
           ),
           const SizedBox(height: 12),

@@ -245,12 +245,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [bodyContent, ..._pages],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex.clamp(0, 2),
+          currentIndex: _selectedIndex.clamp(0, 3),
           // limit to 4 for bottom bar
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: AppColors.blue,
-          items: mainNavItems.take(3).map((e) {
+          items: mainNavItems.take(4).map((e) {
             return BottomNavigationBarItem(icon: Icon(e.icon), label: e.label);
           }).toList(),
         ),

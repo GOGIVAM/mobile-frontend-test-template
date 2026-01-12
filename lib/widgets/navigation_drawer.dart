@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../models/nav_items.dart';
 import '../utils/app_breakpoints.dart';
-import '../utils/app_colors.dart';
 
 class ResponsiveNavigation extends StatelessWidget {
   final int selectedIndex;
@@ -18,10 +17,7 @@ class ResponsiveNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    final width = MediaQuery.of(context).size.width;
 
     if (AppBreakpoints.isMobile(width)) {
       // Mobile: return nothing here → we use BottomNavigationBar + Drawer
@@ -29,11 +25,11 @@ class ResponsiveNavigation extends StatelessWidget {
     }
 
     // Tablet & Desktop: NavigationRail
-    return CustomNavigationRail(isRailExtended: isRailExtended && AppBreakpoints.isDesktop(width),
+    return CustomNavigationRail(
+        isRailExtended: isRailExtended && AppBreakpoints.isDesktop(width),
         selectedIndex: selectedIndex,
         onDestinationSelected: onDestinationSelected,
         mainNavItems: mainNavItems);
-
   }
 }
 
@@ -50,43 +46,14 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: AppColors.primary),
-            child: Text(
-              'Menu',
-              style: TextStyle(color: Colors.white, fontSize: 24),
-            ),
-          ),
-          ...List.generate(mainNavItems.length, (index) {
-            final item = mainNavItems[index];
-            return ListTile(
-              leading: Icon(
-                item.icon,
-                color: selectedIndex == index ? AppColors.primary : null,
-              ),
-              title: Text(
-                item.label,
-                style: TextStyle(
-                  color: selectedIndex == index ? AppColors.primary : null,
-                  fontWeight: selectedIndex == index ? FontWeight.bold : null,
-                ),
-              ),
-              selected: selectedIndex == index,
-              onTap: () {
-                onItemTapped(index);
-                Navigator.pop(context); // close drawer
-              },
-            );
-          }),
-        ],
-      ),
+      child: CustomNavigationRail(
+          isRailExtended: true,
+          selectedIndex: selectedIndex,
+          onDestinationSelected: onItemTapped,
+          mainNavItems: mainNavItems),
     );
   }
 }
-
 
 class CustomNavigationRail extends StatelessWidget {
   final bool isRailExtended;
@@ -123,22 +90,22 @@ class CustomNavigationRail extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: isRailExtended
                 ? Image.asset(
-              'assets/images/logo.png', // Your logo asset path
-              fit: BoxFit.contain,
-            )
+                    'assets/images/logo.png', // Your logo asset path
+                    fit: BoxFit.contain,
+                  )
                 : Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFF6B8DE3),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.dashboard,
-                  color: Colors.white,
-                  size: 28,
-                ),
-              ),
-            ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF6B8DE3),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Center(
+                      child: Icon(
+                        Icons.dashboard,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                    ),
+                  ),
           ),
           // Navigation items
           Expanded(
@@ -263,8 +230,8 @@ class CustomNavigationRail extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-              horizontal: 20, vertical: 4),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
           leading: Icon(
             icon,
             color: Colors.grey[700],
@@ -298,8 +265,9 @@ class CustomNavigationRail extends StatelessWidget {
         margin: const EdgeInsets.only(left: 20, right: 20, bottom: 4),
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF6B8DE3).withOpacity(0.1) : Colors
-              .transparent,
+          color: isSelected
+              ? const Color(0xFF6B8DE3).withOpacity(0.1)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
@@ -353,10 +321,11 @@ class CustomNavigationRail extends StatelessWidget {
                     title,
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight
-                          .w500,
-                      color: isSelected ? const Color(0xFF6B8DE3) : Colors
-                          .grey[800],
+                      fontWeight:
+                          isSelected ? FontWeight.w600 : FontWeight.w500,
+                      color: isSelected
+                          ? const Color(0xFF6B8DE3)
+                          : Colors.grey[800],
                     ),
                   ),
                 ),
