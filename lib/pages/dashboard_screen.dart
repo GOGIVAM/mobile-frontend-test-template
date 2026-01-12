@@ -143,22 +143,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       title: 'Sales',
                       value: '250k',
                       color: AppColors.orangeAccent,
-                      icon: Icons.trending_up),
+                      icon: Icons.pie_chart_outline_outlined),
                   KpiCard(
                       title: 'Customers',
                       value: '24m',
                       color: AppColors.blue,
-                      icon: Icons.people),
+                      icon: Icons.emoji_emotions_outlined),
                   KpiCard(
                       title: 'Products',
                       value: '15k',
                       color: AppColors.orange,
-                      icon: Icons.inventory),
+                      icon: Icons.inventory_2_outlined),
                   KpiCard(
                       title: 'Revenue',
                       value: '180m',
                       color: AppColors.green,
-                      icon: Icons.attach_money),
+                      icon: Icons.shopping_bag_outlined),
                 ],
               );
             },
