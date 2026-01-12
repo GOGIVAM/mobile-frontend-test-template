@@ -15,11 +15,11 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Row(
+        title: const Row(
           children: [
-            const Icon(Icons.home_outlined, color: Color(0xFF5B6FED)),
-            const SizedBox(width: 8),
-            const Text(
+            Icon(Icons.home_outlined, color: Color(0xFF5B6FED)),
+            SizedBox(width: 8),
+            Text(
               'Home',
               style: TextStyle(
                 color: Color(0xFF2D3748),
@@ -27,10 +27,10 @@ class DashboardScreen extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(width: 8),
-            const Icon(Icons.chevron_right, color: Colors.grey, size: 20),
-            const SizedBox(width: 8),
-            const Text(
+            SizedBox(width: 8),
+            Icon(Icons.chevron_right, color: Colors.grey, size: 20),
+            SizedBox(width: 8),
+            Text(
               'Sales',
               style: TextStyle(
                 color: Color(0xFF2D3748),
@@ -51,13 +51,13 @@ class DashboardScreen extends StatelessWidget {
                     color: Colors.green[50],
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Row(
+                  child: const Row(
                     children: [
-                      const Text(
+                      Text(
                         'You have ',
                         style: TextStyle(fontSize: 13, color: Color(0xFF2D3748)),
                       ),
-                      const Text(
+                      Text(
                         '21',
                         style: TextStyle(
                           fontSize: 13,
@@ -65,12 +65,12 @@ class DashboardScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Text(
+                      Text(
                         ' new leads',
                         style: TextStyle(fontSize: 13, color: Color(0xFF2D3748)),
                       ),
-                      const SizedBox(width: 4),
-                      const Icon(Icons.celebration, color: Colors.amber, size: 18),
+                      SizedBox(width: 4),
+                      Icon(Icons.celebration, color: Colors.amber, size: 18),
                     ],
                   ),
                 ),
@@ -136,9 +136,9 @@ class DashboardScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             // Charts Row
-            Row(
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Expanded(
                   flex: 2,
                   child: LineChart(),
