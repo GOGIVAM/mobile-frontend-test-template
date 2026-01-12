@@ -1,4 +1,3 @@
-// lib/pages/dashboard_screen.dart
 import 'package:flutter/material.dart';
 import '../widgets/kpi_card.dart';
 import '../widgets/orders_table.dart';

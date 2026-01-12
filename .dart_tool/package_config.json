@@ -164,7 +164,7 @@
       "languageVersion": "3.5"
     },
     {
-      "name": "Module_1",
+      "name": "module_1",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.18"
