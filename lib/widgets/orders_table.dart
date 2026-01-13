@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../utils/app_colors.dart';
 import '../models/order.dart';
+import '../providers/order_provider.dart';
 
 class OrdersTable extends StatelessWidget {
   const OrdersTable({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Order> orders = [
-      Order(
-        customerName: 'Ellie Collins',
-        customerImage: 'assets/images/avatar.png',
-        productName: 'Ginger Snacks',
-        productImage: 'assets/images/ginger.png',
-        userId: 'Arise827',
-        date: '12/12/2021',
-        amount: '\$18.00',
-        paymentStatus: 'Paid',
-        deliveryStatus: 'Delivered',
-      ),
-    ];
+    final OrderProvider orderProvider = Get.find();
 
     return Container(
       width: double.infinity,
@@ -46,61 +36,92 @@ class OrdersTable extends StatelessWidget {
               color: AppColors.textPrimary,
             ),
           ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: constraints.maxWidth),
-                  child: DataTable(
-                    horizontalMargin: 0,
-                    columnSpacing: 20,
-                    headingTextStyle: const TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    columns: const [
-                      DataColumn(label: Text('Customer')),
-                      DataColumn(label: Text('Product')),
-                      DataColumn(label: Text('User ID')),
-                      DataColumn(label: Text('Ordered Placed')),
-                      DataColumn(label: Text('Amount')),
-                      DataColumn(label: Text('Payment Status')),
-                      DataColumn(label: Text('Delivery Status')),
-                    ],
-                    rows: orders.map((order) {
-                      return DataRow(cells: [
-                        DataCell(_buildCustomerCell(order)),
-                        DataCell(_buildProductCell(order)),
-                        DataCell(Text(order.userId, style: const TextStyle(color: AppColors.textPrimary))),
-                        DataCell(Text(order.date, style: const TextStyle(color: AppColors.textPrimary))),
-                        DataCell(Text(order.amount, style: const TextStyle(color: AppColors.textPrimary))),
-                        DataCell(_buildPaymentStatusCell(order)),
-                        DataCell(_buildDeliveryStatusCell(order)),
-                      ]);
-                    }).toList(),
-                  ),
+          const SizedBox(height: 04),
+          Obx(() {
+            final orders = orderProvider.orders.toList();
+            
+            if (orders.isEmpty) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(32.0),
+                  child: Text('No orders available.', style: TextStyle(color: AppColors.textSecondary)),
                 ),
               );
-            },
-          ),
+            }
+
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                    child: DataTable(
+                      horizontalMargin: 0,
+                      columnSpacing: 20,
+                      headingTextStyle: const TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      columns: const [
+                        DataColumn(label: Text('Customer')),
+                        DataColumn(label: Text('Product')),
+                        DataColumn(label: Text('User ID')),
+                        DataColumn(label: Text('Ordered Placed')),
+                        DataColumn(label: Text('Amount')),
+                        DataColumn(label: Text('Payment Status')),
+                        DataColumn(label: Text('Delivery Status')),
+                      ],
+                      rows: List<DataRow>.generate(
+                        orders.length,
+                        (index) {
+                          final order = orders[index];
+                          return DataRow(
+                            cells: [
+                              DataCell(_buildCustomerCell(order, index, orderProvider)),
+                              DataCell(_buildProductCell(order)),
+                              DataCell(Text(order.userId, style: const TextStyle(color: AppColors.textPrimary))),
+                              DataCell(Text(order.date, style: const TextStyle(color: AppColors.textPrimary))),
+                              DataCell(Text(order.amount, style: const TextStyle(color: AppColors.textPrimary))),
+                              DataCell(_buildPaymentStatusCell(order)),
+                              DataCell(_buildDeliveryStatusCell(order)),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          }),
         ],
       ),
     );
   }
 
-  Widget _buildCustomerCell(Order order) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: Image.asset(order.customerImage, width: 32, height: 32, fit: BoxFit.cover),
-        ),
-        const SizedBox(width: 12),
-        Text(order.customerName, style: const TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.w500)),
-      ],
+  Widget _buildCustomerCell(Order order, int index, OrderProvider provider) {
+    return Dismissible(
+      key: Key(order.userId + index.toString()),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 20),
+        color: Colors.red,
+        child: const Icon(Icons.delete, color: Colors.white),
+      ),
+      onDismissed: (_) => provider.swipeToAction(index),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Image.asset(order.customerImage, width: 32, height: 32, fit: BoxFit.cover),
+          ),
+          const SizedBox(width: 12),
+          Text(order.customerName, style: const TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.w500)),
+        ],
+      ),
     );
   }
 
