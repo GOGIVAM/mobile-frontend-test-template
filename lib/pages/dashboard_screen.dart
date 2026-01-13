@@ -121,6 +121,7 @@ class NotificationBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Badge(
       backgroundColor: AppColors.green,
+      label: Text('21'),
       child: Icon(Icons.notifications, color: Colors.orange),
     );
   }

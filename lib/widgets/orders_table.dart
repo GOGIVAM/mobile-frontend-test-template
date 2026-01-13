@@ -56,7 +56,7 @@ class OrdersTable extends ConsumerWidget {
             const SizedBox(height: 16),
             ListView.separated(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemCount: orderState.orders.length,
               separatorBuilder: (_, __) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
@@ -240,8 +240,9 @@ class OrdersTable extends ConsumerWidget {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.grey),
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.grey,
+                  ),
                   child: Center(
                     child: Text(
                       order.customer.substring(0, 1),
@@ -250,12 +251,16 @@ class OrdersTable extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                Text(
-                  order.customer,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF2D3748),
+                Expanded(                                 // ← ADD THIS
+                  child: Text(
+                    order.customer,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF2D3748),
+                    ),
+                    overflow: TextOverflow.ellipsis,      // already there → good
+                    maxLines: 1,
                   ),
                 ),
               ],
@@ -359,12 +364,16 @@ class OrdersTable extends ConsumerWidget {
             Icon(Icons.check_circle_outline, size: 14, color: color),
             const SizedBox(width: 4),
           ],
-          Text(
-            status,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
+          Flexible(                    // ← add
+            child: Text(
+              status,
+              style: TextStyle(
+                color: color,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
           ),
         ],
@@ -500,120 +509,134 @@ class OrderCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), // reduced vertical padding
       decoration: BoxDecoration(
         color: const Color(0xFFFAFAFA),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: const Color(0xFFE2E8F0)),
       ),
-      child: Row(
-        children: [
-          // Customer Avatar
-          Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8), color: Colors.grey),
-            child: Center(
-              child: Text(
-                order.customer.substring(0, 1),
-                style: const TextStyle(color: Colors.white, fontSize: 24),
+      child: IntrinsicHeight(  // ← helps constrain height when needed
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start, // better vertical alignment
+          children: [
+            // Customer Avatar – slightly smaller
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey,
+              ),
+              child: Center(
+                child: Text(
+                  order.customer.substring(0, 1),
+                  style: const TextStyle(color: Colors.white, fontSize: 22),
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 12),
+            const SizedBox(width: 12),
 
-          // Order Details
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            // Order Details – use min size + ellipsis
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,          // ← crucial: don't take more space than needed
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    order.customer,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: Color(0xFF1A202C),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    order.product,
+                    style: const TextStyle(
+                      color: Color(0xFF718096),
+                      fontSize: 13,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 6), // reduced from 8
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          order.userId,
+                          style: const TextStyle(
+                            color: Color(0xFFA0AEC0),
+                            fontSize: 12,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        '${order.orderDate.month}/${order.orderDate.day}/${order.orderDate.year}',
+                        style: const TextStyle(
+                          color: Color(0xFFA0AEC0),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(width: 16),
+
+            // Amount and Status – tighter spacing
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  order.customer,
+                  '\$${order.amount.toStringAsFixed(2)}',
                   style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                     color: Color(0xFF1A202C),
                   ),
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  order.product,
-                  style: const TextStyle(
-                    color: Color(0xFF718096),
-                    fontSize: 13,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Text(
-                      order.userId,
-                      style: const TextStyle(
-                        color: Color(0xFFA0AEC0),
-                        fontSize: 12,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      '${order.orderDate.month}/${order.orderDate.day}/${order.orderDate.year}',
-                      style: const TextStyle(
-                        color: Color(0xFFA0AEC0),
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
+                const SizedBox(height: 6), // reduced from 8
+                _buildCompactStatusBadge(order.paymentStatus, order.paymentColor, true),
+                const SizedBox(height: 2), // reduced from 4
+                _buildCompactStatusBadge(order.deliveryStatus, order.deliveryColor, false),
               ],
             ),
-          ),
-
-          // Amount and Status
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '\$${order.amount.toStringAsFixed(2)}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Color(0xFF1A202C),
-                ),
-              ),
-              const SizedBox(height: 8),
-              _buildCompactStatusBadge(
-                  order.paymentStatus, order.paymentColor, true),
-              const SizedBox(height: 4),
-              _buildCompactStatusBadge(
-                  order.deliveryStatus, order.deliveryColor, false),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildCompactStatusBadge(String status, Color color, bool showTick) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        if (status == 'Paid')
-          Icon(
-            Icons.check_circle_outline,
-            color: color,
-          ),
-        Container(
-          padding: const EdgeInsets.all(2),
-          decoration:
-              BoxDecoration(color: showTick ? Colors.transparent : color),
+        if (showTick && status.toLowerCase() == 'paid') ...[
+          Icon(Icons.check_circle_outline, size: 13, color: color),
+          const SizedBox(width: 3),
+        ],
+        Flexible(
           child: Text(
             status,
             style: TextStyle(
-              color: showTick ? color : Colors.white,
-              fontSize: 10,
+              color: color,
+              fontSize: 11,               // slightly smaller to save space
               fontWeight: FontWeight.w600,
             ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
-        )
+        ),
       ],
     );
   }
