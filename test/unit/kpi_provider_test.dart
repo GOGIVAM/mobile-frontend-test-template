@@ -396,8 +396,6 @@ void main() {
     test('should recalculate when orders are added', () {
       // Arrange
       final container = ProviderContainer();
-      final initialKpis = container.read(kpiProvider);
-
       // Act - Add a new order
       container.read(orderProvider.notifier).addOrder(
         OrderModel(

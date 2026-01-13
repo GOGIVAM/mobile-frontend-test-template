@@ -192,8 +192,8 @@ void main() {
     });
 
     test('calculates correct horizontal interval', () {
-      final maxYValue = 100.0;
-      final expectedInterval = maxYValue / 5;
+      const maxYValue = 100.0;
+      const expectedInterval = maxYValue / 5;
 
       expect(expectedInterval, 20.0);
     });
@@ -202,8 +202,8 @@ void main() {
       const salesColor = Color(0xFF5B7FE8);
       const revenueColor = Color(0xFF5DCCF5);
 
-      expect(salesColor.value, 0xFF5B7FE8);
-      expect(revenueColor.value, 0xFF5DCCF5);
+      expect(salesColor.r, 0xFF5B7FE8);
+      expect(revenueColor.r, 0xFF5DCCF5);
     });
 
     testWidgets(

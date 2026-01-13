@@ -136,7 +136,7 @@ void main() {
 
     test('should update sales metrics when filtering', () {
       // Arrange
-      final initialMetrics = container.read(salesMetricsProvider);
+      // final initialMetrics = container.read(salesMetricsProvider);
 
       // Act
       container.read(dashboardProvider.notifier).filterByPeriod(DatePeriod.week);
@@ -189,7 +189,7 @@ void main() {
 
     test('should recalculate when orders change', () {
       // Arrange
-      final initialMetrics = container.read(salesMetricsProvider);
+      // final initialMetrics = container.read(salesMetricsProvider);
 
       // Act - Add a new order
       container.read(orderProvider.notifier).addOrder(

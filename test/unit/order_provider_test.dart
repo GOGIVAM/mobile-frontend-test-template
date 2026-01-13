@@ -143,7 +143,7 @@ void main() {
 
     test('should delete order on swipe delete', () {
       // Arrange
-      final orderId = '2';
+      const orderId = '2';
       final initialCount = container.read(orderProvider).orders.length;
 
       // Act
