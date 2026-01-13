@@ -39,7 +39,7 @@ class DashboardScreen extends ConsumerWidget {
           actions: const [
             Icon(Icons.search),
             SizedBox(width: 8),
-            NotificationBadge(),
+            NotificationBadge(count: 21,),
             SizedBox(width: 8),
             Padding(
               padding: EdgeInsets.only(right: 16),

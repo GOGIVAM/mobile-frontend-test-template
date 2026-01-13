@@ -115,14 +115,15 @@ class BreadcrumbNav extends StatelessWidget {
 }
 
 class NotificationBadge extends StatelessWidget {
-  const NotificationBadge({super.key});
+  const NotificationBadge({super.key, required this.count});
+  final int count;
 
   @override
   Widget build(BuildContext context) {
-    return const Badge(
+    return Badge(
       backgroundColor: AppColors.green,
-      label: Text('21'),
-      child: Icon(Icons.notifications, color: Colors.orange),
+      label: Text(count.toString()),
+      child: const Icon(Icons.notifications, color: Colors.orange),
     );
   }
 }
@@ -181,7 +182,7 @@ class DashboardHeader extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const NotificationBadge(),
+                    const NotificationBadge(count: 21,),
                   ],
                 ),
               ),
