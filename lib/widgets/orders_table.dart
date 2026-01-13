@@ -221,8 +221,11 @@ class OrdersTable extends ConsumerWidget {
   }
 
   Widget _buildDesktopOrderRow(
-      OrderModel order, WidgetRef ref, BuildContext context) {
-    return Container(
+      OrderModel order,
+      WidgetRef ref,
+      BuildContext context,
+      ) {
+    final rowContent = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
         border: Border(
@@ -251,7 +254,7 @@ class OrdersTable extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
-                Expanded(                                 // ← ADD THIS
+                Expanded(
                   child: Text(
                     order.customer,
                     style: const TextStyle(
@@ -259,7 +262,7 @@ class OrdersTable extends ConsumerWidget {
                       fontWeight: FontWeight.w500,
                       color: Color(0xFF2D3748),
                     ),
-                    overflow: TextOverflow.ellipsis,      // already there → good
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
                 ),
@@ -334,7 +337,8 @@ class OrdersTable extends ConsumerWidget {
             flex: 2,
             child: _buildStatusBadge(order.paymentStatus, order.paymentColor),
           ),
-          const SizedBox(width: 2,),
+          const SizedBox(width: 2),
+
           // Delivery Status
           Expanded(
             flex: 2,
@@ -342,6 +346,11 @@ class OrdersTable extends ConsumerWidget {
           ),
         ],
       ),
+    );
+
+    return SwipeableRow(
+      order: order,
+      child: rowContent,
     );
   }
 
@@ -638,6 +647,112 @@ class OrderCardContent extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+
+class SwipeableRow extends ConsumerWidget {
+  final Widget child;
+  final OrderModel order;
+
+  const SwipeableRow({
+    super.key,
+    required this.child,
+    required this.order,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Dismissible(
+      key: Key('desktop-${order.id}'),
+      direction: DismissDirection.horizontal,
+      background: Container(
+        color: const Color(0xFF48BB78),
+        alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.only(left: 24),
+        child: const Row(
+          children: [
+            Icon(Icons.check_circle, color: Colors.white, size: 28),
+            SizedBox(width: 12),
+            Text(
+              'Approve',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+      ),
+      secondaryBackground: Container(
+        color: const Color(0xFFF56565),
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 24),
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'Delete',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(width: 12),
+            Icon(Icons.delete_outline, color: Colors.white, size: 28),
+          ],
+        ),
+      ),
+      confirmDismiss: (direction) async {
+        if (direction == DismissDirection.startToEnd) {
+          // Approve
+          ref.read(orderProvider.notifier).swipeToAction(order.id, OrderAction.approve);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Order from ${order.customer} approved'),
+              backgroundColor: const Color(0xFF48BB78),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+          return false; // Don't dismiss (we update state instead)
+        } else if (direction == DismissDirection.endToStart) {
+          // Delete with confirmation
+          final confirm = await showDialog<bool>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Delete Order'),
+              content: Text('Are you sure you want to delete the order from ${order.customer}?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context, false),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(context, true),
+                  child: const Text('Delete', style: TextStyle(color: Color(0xFFF56565))),
+                ),
+              ],
+            ),
+          );
+
+          if (confirm == true && context.mounted) {
+            ref.read(orderProvider.notifier).swipeToAction(order.id, OrderAction.delete);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Order from ${order.customer} deleted'),
+                backgroundColor: const Color(0xFFF56565),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
+          return confirm ?? false;
+        }
+        return false;
+      },
+      child: child,
     );
   }
 }
