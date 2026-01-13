@@ -7,13 +7,14 @@ class KpiCard extends StatelessWidget {
   final Color color;
   final IconData icon;
 
-  const KpiCard(
-      {super.key,
-      required this.title,
-      required this.value,
-      required this.color,
-      required this.icon,
-      required double changePercentage});
+  const KpiCard({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.color,
+    required this.icon,
+    required double changePercentage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,21 +30,34 @@ class KpiCard extends StatelessWidget {
         spacing: 8,
         children: [
           CircleAvatar(
-              backgroundColor: color,
-              child: Icon(
-                icon,
-                size: 32,
-                color: AppColors.cardBg,
-              )),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(value,
+            backgroundColor: color,
+            child: Icon(
+              icon,
+              size: 32,
+              color: AppColors.cardBg,
+            ),
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  value,
                   style: TextStyle(
-                      fontSize: 28, fontWeight: FontWeight.bold, color: color)),
-              Text(title, style: const TextStyle(fontSize: 16)),
-            ],
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  title,
+                  style: const TextStyle(fontSize: 16),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),

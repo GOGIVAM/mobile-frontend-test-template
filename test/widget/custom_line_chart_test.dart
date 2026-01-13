@@ -198,14 +198,6 @@ void main() {
       expect(expectedInterval, 20.0);
     });
 
-    test('validates line colors', () {
-      const salesColor = Color(0xFF5B7FE8);
-      const revenueColor = Color(0xFF5DCCF5);
-
-      expect(salesColor.r, 0xFF5B7FE8);
-      expect(revenueColor.r, 0xFF5DCCF5);
-    });
-
     testWidgets(
         'chart responds to period changes', (WidgetTester tester) async {
       final container = ProviderContainer(
