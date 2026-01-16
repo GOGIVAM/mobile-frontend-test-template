@@ -1,3 +1,77 @@
-# Frontend
+# Delivery App - Mobile Frontend Dashboard
 
-Structure du frontend Flutter pour le projet Deliveries.
+This high-performance Flutter application demonstrates a modern delivery management dashboard with real-time reactive state management, data visualization, and comprehensive quality assurance.
+
+## Getting Started
+
+### Prerequisites
+* Flutter SDK (>= 3.0.0)
+* Dart SDK
+* An Android/iOS emulator or a physical device
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yvanbinda/mobile-frontend-test-template.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd mobile-frontend-test-template
+   ```
+3. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+4. Run the application:
+   ```bash
+   flutter run
+   ```
+
+## Technical Architecture
+
+The project adheres to a clean, modular architecture that separates business logic from the presentation layer.
+
+### Folder Structure
+- `lib/models/`: Domain entities and data models.
+- `lib/providers/`: Business logic and state management (GetX Controllers).
+- `lib/pages/`: Feature-based screens and views.
+- `lib/widgets/`: Atomic, reusable UI components.
+- `lib/utils/`: Theme constants, math, and date utilities.
+
+### Choice of Architecture: GetX
+We utilized **GetX** for state management to ensure:
+- **Reactive Programming**: The UI automatically updates when data changes in the controllers.
+- **Dependency Injection**: Decoupled initialization of services and logic.
+- **High Performance**: Optimized rebuilds that target only the necessary widgets (`Obx`).
+
+## Core Features
+- **Interactive Charts**: Line and Bar charts with period-based filtering (7, 15, 30 days).
+- **Responsive Design**: Fluid layout that adapts seamlessly to Mobile (Portrait/Landscape), Tablet, and Desktop.
+- **Tactile Gestures**: Native feel with Pull-to-Refresh and Swipe-to-Delete functionality.
+- **KPI Metrics**: Real-time calculated statistics for Sales, Customers, and Revenue.
+
+## Quality Assurance & Testing
+
+The project maintains high code quality through rigorous automated testing.
+
+### Running Unit Tests
+Tests the core logic of utility functions.
+```bash
+flutter test test/unit
+```
+
+### Running Widget Tests
+Tests the rendering and interaction of UI components.
+```bash
+flutter test test/widget
+```
+
+## Technical Choices
+- **Material 3**: Leveraged the latest Google design standards.
+- **Clean Code**: Adherence to Dart linting rules and the DRY (Don't Repeat Yourself) principle.
+- **Modularity**: Every major component is isolated for easy maintenance and testing.
+
+---
+**Author:** Yvan Binda  
+**Repository:** [https://github.com/yvanbinda/mobile-frontend-test-template.git](https://github.com/yvanbinda/mobile-frontend-test-template.git)  
+*Developed for the Mobile Frontend Competency Assessment.*
